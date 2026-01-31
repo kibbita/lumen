@@ -19,7 +19,7 @@
     "@nx/eslint": "22.4.2",
     "@nx/eslint-plugin": "22.4.2",
     "@nx/js": "22.4.2",
-    "@nx/nest": "^22.4.2",
+    "@nx/nest": "^22.4.4",
     "@nx/node": "22.4.2",
     "@nx/web": "22.4.2",
     "@nx/webpack": "22.4.2",
@@ -40,7 +40,7 @@
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
     "vitest": "^4.0.8",
-    "webpack-cli": "^5.1.4"
+    "webpack": "^5.104.1"
   },
   "workspaces": [
     "packages/*",

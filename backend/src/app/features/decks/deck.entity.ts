@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { CardEntity } from "../cards/card.entity";
 import { UserEntity } from "../users/user.entity";
 
-@Entity()
+@Entity('decks')
 export class DeckEntity{
     @PrimaryGeneratedColumn()
     id!: number;

@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import { Global, Module } from '@nestjs/common';
 import { UserEntity } from '../features/users/user.entity';
+import { CardEntity } from '../features/cards/card.entity';
+import { DeckEntity } from '../features/decks/deck.entity';
 
 @Global() // makes the module available globally for other modules once imported in the app modules
 @Module({
@@ -19,7 +21,7 @@ import { UserEntity } from '../features/users/user.entity';
             password: 'admin',
             database: 'cards-app',
             synchronize: true,
-            entities: [UserEntity], 
+            entities: defaultEntities, 
           });   
           await dataSource.initialize();
           console.log('Database connected successfully');
@@ -33,4 +35,6 @@ import { UserEntity } from '../features/users/user.entity';
   ],
   exports: [DataSource],
 })
+
 export class TypeOrmModule {}
+export const defaultEntities = [UserEntity, CardEntity, DeckEntity]

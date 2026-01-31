@@ -1,0 +1,22 @@
+{
+  "name": "@org/backend",
+  "projectType": "application",
+  "sourceRoot": "backend/src",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "backend/src/main.ts",
+        "outputPath": "dist/backend",
+        "tsConfig": "backend/tsconfig.app.json"
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "@org/backend:build"
+      }
+    }
+  }
+}
