@@ -14,14 +14,11 @@ import { DeckEntity } from '../features/decks/deck.entity';
       useFactory: async () => {
         try {
           const dataSource = new DataSource({
-            type: 'mysql',
-            host: 'localhost',
-            port: 3306,
-            username: 'admin',
-            password: 'admin',
-            database: 'cards-app',
+           type: 'sqlite',
+            database: 'data/cards-app.sqlite',
+            entities: defaultEntities,
             synchronize: true,
-            entities: defaultEntities, 
+            logging: false,
           });   
           await dataSource.initialize();
           console.log('Database connected successfully');
