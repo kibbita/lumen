@@ -2,22 +2,23 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug @org/backend (Nx)",
       "type": "node",
       "request": "launch",
-      "name": "Debug @org/backend with Nx",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["nx", "serve", "@org/backend"],
-      "env": {
-        "NODE_OPTIONS": "--inspect=9229"
-      },
+      "runtimeArgs": [
+        "nx",
+        "serve",
+        "@org/backend",
+        "--skip-nx-cache"
+      ],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}",
       "sourceMaps": true,
       "outFiles": [
-        "${workspaceFolder}/backend/dist/**/*.(m|c|)js",
-        "!**/node_modules/**"
-      ]
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

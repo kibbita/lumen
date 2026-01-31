@@ -38,25 +38,25 @@ export class UsersService {
     }
 
     async findOne(query: UserQuery): Promise<UserEntity | null> {
-        const qb = this.repository.createQueryBuilder('user');
+        const qb = this.repository.createQueryBuilder('users');
 
         if (query.withPassword) {
-            qb.addSelect('user.passwordHash');
+            qb.addSelect('users.passwordHash');
         }
 
         if (query.id) {
-            qb.andWhere('user.id = :id', { id: query.id });
+            qb.andWhere('users.id = :id', { id: query.id });
         }
 
         if (query.username) {
-            qb.andWhere('user.username = :username', { username: query.username });
+            qb.andWhere('users.username = :username', { username: query.username });
         }
 
         if (query.email) {
-            qb.andWhere('user.email = :email', { email: query.email });
+            qb.andWhere('users.email = :email', { email: query.email });
         }
 
-        return qb.getOne();
+        return await qb.getOne();
     }
 
 }

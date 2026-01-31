@@ -7,9 +7,13 @@ import { CardsModule } from './features/cards/cards.module';
 import { DecksModule } from './features/decks/decks.module';
 import { AuthService } from './features/auth/auth.service';
 import { AuthModule } from './features/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule, UsersModule, CardsModule, DecksModule, AuthModule],
+  imports: [TypeOrmModule,    ConfigModule.forRoot({
+      isGlobal: true, // 👈 important
+      envFilePath: '.env',
+    }), UsersModule, CardsModule, DecksModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, AuthService],
 })

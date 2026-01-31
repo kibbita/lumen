@@ -3,15 +3,17 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthResponse } from './models/auth-response';
+import { UserQuery } from '../users/models/userQuery';
+import { LoginDto } from './models/loginDto';
 @Injectable()
 export class AuthService {
     constructor(private usersService: UsersService, private jwtService: JwtService){
     }
 
-  async logIn(username: string, unhashedPassword: string): Promise<AuthResponse | null> {
-    const user = await this.usersService.findOne({username});
+  async logIn(loginDto: LoginDto): Promise<AuthResponse | null> {
+    const user = await this.usersService.findOne({username: loginDto.username} as UserQuery);
 
-    if (!user || !(await bcrypt.compare(unhashedPassword, user.passwordHash))) {
+    if (!user || !(await bcrypt.compare(loginDto.password, user.passwordHash))) {
       return null;
     }
 
@@ -21,3 +23,4 @@ export class AuthService {
     };
 }
 }
+  

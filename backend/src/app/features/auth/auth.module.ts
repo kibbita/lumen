@@ -6,8 +6,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { UsersModule } from '../users/users.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtStrategy } from './jwt.strategy';
 @Module({
-  providers: [AuthService,  
+  providers: [AuthService,  JwtStrategy,
     // for all routes! Unless marked with @Public()
     {
       provide: APP_GUARD,
@@ -17,13 +19,20 @@ import { UsersModule } from '../users/users.module';
   imports: [
     PassportModule,
     UsersModule,
-    JwtModule.register({
-      global: true,
-      secret: process.env.TZ, //TODO: change,
-      signOptions: { expiresIn: '1h' }, // TODO: CHANGE
+    ConfigModule,
+    JwtModule.registerAsync({
+      global:true,
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => (
+      {
+        secret: config.get<string>('JWT_SECRET'),
+      signOptions: { expiresIn: '1h' }, 
+      }),
+
     }),
   ],
   exports: [AuthService],
   controllers: [AuthController],
 })
-export class AuthModule {}
+export class AuthModule {
+}
