@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CardEntity } from "../cards/card.entity";
+import { UserEntity } from "../users/user.entity";
 
 @Entity()
 export class DeckEntity{
@@ -8,5 +10,10 @@ export class DeckEntity{
     @Column({length: 120})
     name!: string;
 
-    //Todo: review how to put user id
+    @OneToMany(() => CardEntity, card => card.deck)
+    cards!: CardEntity[];
+
+    @ManyToOne(() => UserEntity, user => user.decks, { onDelete: 'CASCADE',})
+        @JoinColumn({ name: 'user_id' })
+        user!: UserEntity;
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { DeckEntity } from "../decks/deck.entity";
 
 @Entity('user')
 export class UserEntity {
@@ -13,4 +14,8 @@ export class UserEntity {
 
   @Column({unique: true})
   email!: string;
+
+  @OneToMany(() => DeckEntity, deck => deck.user)
+  decks!: DeckEntity[];
+
 }
