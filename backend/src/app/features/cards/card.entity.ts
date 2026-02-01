@@ -6,9 +6,6 @@ export class CardEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
-    deckId!: number;
-
     @Column({ type: 'text' })
     frontContent!: string;
 
@@ -17,5 +14,5 @@ export class CardEntity {
 
     @ManyToOne(() => DeckEntity, deck => deck.cards, { onDelete: 'CASCADE',})
     @JoinColumn({ name: 'deck_id' })
-    deck!: DeckEntity;
+        deck!: DeckEntity;
     }
