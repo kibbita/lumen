@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Req } from '@nestjs/common';
+import { Body, Controller, Post, Get, Req, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserPostDto } from './models/userPostDto';
 import { Public } from '../auth/models/public.decorator';
@@ -15,6 +15,7 @@ export class UsersController {
 
     @Get('me')
     async getMe(@Req() req: any) {
-    return await this.service.findOne({id: req.sub});
+    if (!req.user.sub) throw new UnauthorizedException()
+    return await this.service.findOne({id: req.user.sub});
     }
 }

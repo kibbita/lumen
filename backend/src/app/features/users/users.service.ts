@@ -32,12 +32,14 @@ export class UsersService {
         await this.repository.save(userEntity);
 
         return {
+            id: userEntity.id,
             email: userEntity.email,
             username: userEntity.username
         };
     }
 
-    async findOne(query: UserQuery): Promise<UserEntity | null> {
+    async findOne(query: UserQuery): Promise<UserGetDto | null> {
+        
         const qb = this.repository.createQueryBuilder('users');
 
         if (query.withPassword) {
@@ -56,7 +58,14 @@ export class UsersService {
             qb.andWhere('users.email = :email', { email: query.email });
         }
 
-        return await qb.getOne();
+        const entity= await qb.getOne(); 
+        if (!entity) {return null}
+
+        return {
+            id: entity?.id,
+            username: entity?.username,
+            email: entity?.email,
+        }; 
     }
 
 }

@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthResponse } from './models/auth-response';
-import { UserQuery } from '../users/models/userQuery';
 import { LoginDto } from './models/loginDto';
+import { DataSource } from 'typeorm';
+import { UserEntity } from '../users/user.entity';
 @Injectable()
 export class AuthService {
-    constructor(private usersService: UsersService, private jwtService: JwtService){
+    constructor(private datasource: DataSource, private jwtService: JwtService){
     }
 
+    userRepository = this.datasource.getRepository(UserEntity);
+
   async logIn(loginDto: LoginDto): Promise<AuthResponse | null> {
-    const user = await this.usersService.findOne({username: loginDto.username} as UserQuery);
+
+    const user = await this.userRepository.findOneBy({username: loginDto.username})
 
     if (!user || !(await bcrypt.compare(loginDto.password, user.passwordHash))) {
       return null;
