@@ -8,12 +8,21 @@ import { DecksModule } from './features/decks/decks.module';
 import { AuthService } from './features/auth/auth.service';
 import { AuthModule } from './features/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { FileUploadModule } from './features/file-upload/file-upload.module';
 
 @Module({
-  imports: [TypeOrmModule,    ConfigModule.forRoot({
+  imports: [
+    TypeOrmModule,
+    ConfigModule.forRoot({
       isGlobal: true, // 👈 important
       envFilePath: '.env',
-    }), UsersModule, CardsModule, DecksModule, AuthModule],
+    }),
+    UsersModule,
+    CardsModule,
+    DecksModule,
+    AuthModule,
+    FileUploadModule,
+  ],
   controllers: [AppController],
   providers: [AppService, AuthService],
 })

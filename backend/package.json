@@ -90,8 +90,9 @@
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
+    "sqlite3": "5.0.2",
     "tslib": "^2.3.0",
-    "typeorm": "^0.3.28"
+    "typeorm": "^0.3.6"
   },
   "devDependencies": {
     "@nestjs/testing": "^11.0.0",
