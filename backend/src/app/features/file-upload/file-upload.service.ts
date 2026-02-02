@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import * as fs from 'fs';
 import * as path from 'path';
 
 @Injectable()
@@ -50,4 +51,27 @@ export class FileUploadService {
       mimeType: file.mimetype,
     };
   }
+
+  uploadFromBuffer(
+  buffer: Buffer,
+  originalName: string,
+  mimeType: string,
+) {
+  const id = randomUUID();
+  const ext = path.extname(originalName);
+  const fileName = `${id}${ext}`;
+
+  fs.writeFileSync(
+    path.join(process.cwd(), 'uploads', fileName),
+    buffer
+  );
+
+  return {
+    id,
+    fileName,
+    originalName,
+    mimeType,
+    size: buffer.length,
+  };
+}
 }

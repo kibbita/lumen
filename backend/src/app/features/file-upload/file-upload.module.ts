@@ -17,5 +17,6 @@ import { diskStorage } from 'multer';
   ],
   controllers: [FileUploadController],
   providers: [FileUploadService],
+  exports: [FileUploadService]
 })
 export class FileUploadModule {}
