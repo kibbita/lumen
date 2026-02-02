@@ -2,10 +2,11 @@ import { Body, Controller, Post, Get, Req, UnauthorizedException } from '@nestjs
 import { UsersService } from './users.service';
 import { UserPostDto } from './models/userPostDto';
 import { Public } from '../auth/models/public.decorator';
+import { AnkiService } from '../anki-service/anki.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly service: UsersService) {}
+  constructor(private readonly service: UsersService, private readonly ankiService: AnkiService) {}
 
     @Public()
     @Post()
@@ -15,7 +16,7 @@ export class UsersController {
 
     @Get('me')
     async getMe(@Req() req: any) {
-    if (!req.user.sub) throw new UnauthorizedException()
+    if (!req.user.sub) throw new UnauthorizedException();
     return await this.service.findOne({id: req.user.sub});
     }
 }

@@ -85,6 +85,10 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.0",
     "@nestjs/typeorm": "^11.0.0",
+    "@types/adm-zip": "^0.5.7",
+    "@types/better-sqlite3": "^7.6.13",
+    "adm-zip": "^0.5.16",
+    "better-sqlite3": "^12.6.2",
     "mysql2": "^3.16.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -92,7 +96,8 @@
     "rxjs": "^7.8.0",
     "sqlite3": "5.0.2",
     "tslib": "^2.3.0",
-    "typeorm": "^0.3.6"
+    "typeorm": "^0.3.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@nestjs/testing": "^11.0.0",

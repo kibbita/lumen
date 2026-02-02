@@ -9,6 +9,8 @@ import { AuthService } from './features/auth/auth.service';
 import { AuthModule } from './features/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { FileUploadModule } from './features/file-upload/file-upload.module';
+import { AnkiService } from './features/anki-service/anki.service';
+import { AnkiModule } from './features/anki-service/anki.module';
 
 @Module({
   imports: [
@@ -22,8 +24,9 @@ import { FileUploadModule } from './features/file-upload/file-upload.module';
     DecksModule,
     AuthModule,
     FileUploadModule,
+    AnkiModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService],
+  providers: [AppService, AuthService, AnkiService],
 })
 export class AppModule {}
