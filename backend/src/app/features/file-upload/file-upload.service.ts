@@ -52,19 +52,13 @@ export class FileUploadService {
     };
   }
 
-  uploadFromBuffer(
-  buffer: Buffer,
-  originalName: string,
-  mimeType: string,
-) {
-  const id = randomUUID();
+  uploadFromBuffer(buffer: Buffer, originalName: string, mimeType: string) {
+  
+    const id = randomUUID();
   const ext = path.extname(originalName);
   const fileName = `${id}${ext}`;
 
-  fs.writeFileSync(
-    path.join(process.cwd(), 'uploads', fileName),
-    buffer
-  );
+  fs.writeFileSync(path.join(process.cwd(), 'uploads', fileName),buffer);
 
   return {
     id,

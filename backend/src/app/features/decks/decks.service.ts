@@ -4,6 +4,7 @@ import { DeckEntity } from './deck.entity';
 import { DeckPostDto } from './models/deckPostDto';
 import { DeckGetDto } from './models/deckGetDto';
 import { DeckQuery } from './models/deckQuery';
+import { UserEntity } from '../users/user.entity';
 
 @Injectable()
 export class DecksService {
@@ -18,12 +19,10 @@ export class DecksService {
 
         const entity = this.repository.create({
             name: entityToAdd.name,
-            user: { id: entityToAdd.userId } as DeckEntity,
+            user: { id: entityToAdd.userId } as UserEntity,
         });
 
-        this.repository.save(entity);
-
-        return entity;
+        return await this.repository.save(entity);
     }
 
 
