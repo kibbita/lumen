@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 2rem;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lumen-font {
+  font-family: "Rubik Mono One", monospace;
+  font-style: normal;
+}
+.divider {
+  margin: 3rem 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+}

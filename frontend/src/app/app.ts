@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TuiRoot, TuiButton } from '@taiga-ui/core';
+import { TuiRoot, TuiButton, TuiAppearance } from '@taiga-ui/core';
+import { LucideAngularModule } from 'lucide-angular';
 @Component({
-  imports: [RouterModule, TuiRoot, TuiButton],
+  imports: [RouterModule, TuiRoot, LucideAngularModule],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',

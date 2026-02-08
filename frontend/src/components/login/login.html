@@ -1,0 +1,30 @@
+<main class="bg-page">
+
+    <div class="container">
+        <h1 class="lumen-font typing" style="margin-top: 4rem;">Log In</h1>
+        <div class="divider" style="margin-top: 0rem;"></div>
+
+        <h2 class="lumen-font">E-mail</h2>
+        <tui-textfield>
+            <label tuiLabel for="email">Email</label>
+            <input placeholder="Enter your email" tuiTextfield type="email" id="email" />
+            <lucide-icon [name]="mail" size="20" strokeWidth="1.75"></lucide-icon>
+        </tui-textfield>
+        <h2 class="lumen-font">Password</h2>
+        <tui-textfield>
+            <label tuiLabel for="password">Your password</label>
+            <input tuiTextfield type="password" id="password" />
+            <lucide-icon [name]="keyround" size="20" strokeWidth="1.75"></lucide-icon>
+        </tui-textfield>
+        <button tuiButton appearance="outline" size="m" class="white-button " type="button" style="margin-top: 3rem;">
+            Log In
+        </button>
+
+    <h2 class="lumen-font typing" style="margin-top: 4rem;">
+    New in Lumen?
+    <a (click)="navigateToRegister()" class="login-link">Create Account</a>
+    </h2>
+
+    </div>
+
+</main>

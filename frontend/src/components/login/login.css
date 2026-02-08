@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  min-height: 100vh;
+
+  background: radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #0b1220 100%
+    );
+}
+
+.white-button {
+  --tui-border: #ffffff;
+  --tui-text-01: #ffffff;
+  color:#ffffff; ;
+  background: transparent;
+  letter-spacing: 0.04em;
+  padding-inline: 3rem;
+
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.white-button:hover {
+  background: #ffffff;
+  color: #020617;
+  transform: translateY(-1px);
+}
+
+/* Boton secundario mas discreto */
+.white-button.secondary {
+  padding-inline: 2rem;
+  opacity: 0.85;
+}
+
+.white-button.secondary:hover {
+  opacity: 1;
+}
+
+/* Texto entre botones */
+.divider-text {
+  margin: 4rem 0 2rem;
+  opacity: 0.85;
+}
+
+.login-link {
+  color: #6293db;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+
+.login-link:hover {
+  text-decoration: underline;
+}
