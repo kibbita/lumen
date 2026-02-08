@@ -40,8 +40,8 @@ export class Login {
         password: this.loginForm.get('password')?.value!,
         username: this.loginForm.get('username')?.value!
       }).subscribe({
-        next: () => {
-          console.log('OK')
+        next: (res: any) => {
+          localStorage.setItem('access_token', res.access_token);
         },
         error: (err) => {
           this.toastsService.showError('Incorrect e-mail or password')

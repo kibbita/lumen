@@ -5,6 +5,7 @@ import { AuthResponse } from './models/auth-response';
 import { LoginDto } from './models/loginDto';
 import { DataSource } from 'typeorm';
 import { UserEntity } from '../users/user.entity';
+import { emitWarning } from 'process';
 @Injectable()
 export class AuthService {
     constructor(private datasource: DataSource, private jwtService: JwtService){
@@ -14,7 +15,12 @@ export class AuthService {
 
   async logIn(loginDto: LoginDto): Promise<AuthResponse | null> {
 
-    const user = await this.userRepository.findOneBy({username: loginDto.username})
+    const user = await this.userRepository.findOne({
+      where: [
+        { username: loginDto.username },
+        { email: loginDto.username },
+      ],
+    });
 
     if (!user || !(await bcrypt.compare(loginDto.password, user.passwordHash))) {
       return null;
