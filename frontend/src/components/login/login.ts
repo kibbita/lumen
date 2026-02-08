@@ -42,6 +42,7 @@ export class Login {
       }).subscribe({
         next: (res: any) => {
           localStorage.setItem('access_token', res.access_token);
+          this.router.navigateByUrl('/home');
         },
         error: (err) => {
           this.toastsService.showError('Incorrect e-mail or password')

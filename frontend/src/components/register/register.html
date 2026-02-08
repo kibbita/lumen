@@ -4,28 +4,43 @@
         <h1 class="lumen-font typing" style="margin-top: 4rem;"> Create an account</h1>
         <div class="divider" style="margin-top: 0rem;"></div>
 
+        <form [formGroup]="registerForm">
         <h2 class="lumen-font">E-mail</h2>
         <tui-textfield>
             <label tuiLabel for="email">Email</label>
-            <input placeholder="Enter your email" tuiTextfield type="email" id="email" />
+            <input placeholder="Enter your email" tuiTextfield type="email" id="email" formControlName="email"/>
             <lucide-icon [name]="mail" size="20" strokeWidth="1.75"></lucide-icon>
+        </tui-textfield>
+        <h2 class="lumen-font">Username</h2>
+        <tui-textfield>
+            <label tuiLabel for="username">Username</label>
+            <input placeholder="Enter your username" tuiTextfield type="text" id="usename" formControlName="username"/>
+            <lucide-icon [name]="user" size="20" strokeWidth="1.75"></lucide-icon>
         </tui-textfield>
         <h2 class="lumen-font">Password</h2>
         <tui-textfield>
             <label tuiLabel for="password">Your password</label>
-            <input tuiTextfield type="password" id="password" />
+            <input tuiTextfield type="password" id="password" formControlName=password/>
             <lucide-icon [name]="keyround" size="20" strokeWidth="1.75"></lucide-icon>
         </tui-textfield>
+        <tui-error [error]="passwordError" />
         <h2 class="lumen-font">Repeat password</h2>
         <tui-textfield>
             <label tuiLabel for="password-repeat">Repeat password</label>
-            <input tuiTextfield type="password" id="password-repeat" />
+            <input tuiTextfield type="password" id="password-repeat" formControlName="repeatpassword" />
             <lucide-icon [name]="keyround" size="20" strokeWidth="1.75"></lucide-icon>
         </tui-textfield>
-        <button tuiButton appearance="outline" size="m" class="white-button " type="button" style="margin-top: 3rem;">
+        <tui-error [error]="repeatPasswordError" />
+        <button tuiButton appearance="outline" size="m" class="white-button " type="button" style="margin-top: 3rem;" [disabled]="registerForm.invalid || store.loading()"
+        (click)="submitForm()"
+        >
             Register
+            @if (store.loading()) {
+            <tui-loader size="s" [showLoader]="true" ></tui-loader>
+            }
         </button>
-
+        
+    </form>
     <h2 class="lumen-font typing" style="margin-top: 4rem;">
     Already have an account?
     <a (click)="navigateToLogin()" class="login-link">Log in</a>
