@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TuiTime } from '@taiga-ui/cdk/date-time';
-import { TuiButton, TuiRoot, TuiTitle } from '@taiga-ui/core';
+import { TuiButton } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-welcome',
-  imports: [CommonModule, TuiRoot, TuiButton, TuiTitle,],
+  imports: [CommonModule, TuiButton],
   templateUrl: './welcome.html',
   styleUrl: './welcome.css',
 })
