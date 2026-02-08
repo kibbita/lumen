@@ -17,8 +17,14 @@
           {
             "glob": "**/*",
             "input": "frontend/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "frontend/assets",
+            "output": "assets"
           }
-        ],
+      ],
+
         "styles": [  "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
           "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
           "frontend/src/styles.css"],

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { TuiButton } from '@taiga-ui/core';
 
 @Component({
@@ -8,4 +9,13 @@ import { TuiButton } from '@taiga-ui/core';
   templateUrl: './welcome.html',
   styleUrl: './welcome.css',
 })
-export class Welcome {}
+export class Welcome {
+
+  private router = inject(Router)
+
+     navigateTo(route: string){
+      this.router.navigateByUrl(`/${route}`);
+    }
+
+
+}
