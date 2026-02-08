@@ -15,7 +15,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
-  
+
     app.enableCors({
       origin: 'http://localhost:4200',
       credentials: true,
@@ -26,7 +26,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth(
       {
-        type: 'http',
+      type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
         
