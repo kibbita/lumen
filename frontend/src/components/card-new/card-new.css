@@ -1,0 +1,41 @@
+.editor-shell {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.menu-bar {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.menu-bar button {
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.menu-bar button:hover {
+  background: #e5e7eb;
+}
+
+.menu-bar button.is-active {
+  background: #111827;
+  color: white;
+}
+
+.editor-content {
+  padding: 16px;
+  min-height: 240px;
+}
+
+.editor-content p {
+  margin: 0 0 0.75em;
+}
