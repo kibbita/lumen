@@ -69,6 +69,7 @@
     "@taiga-ui/core": "^4.69.0",
     "@taiga-ui/icons": "^4.69.0",
     "@taiga-ui/kit": "^4.69.0",
+    "@taiga-ui/layout": "^4.70.0",
     "@types/bcrypt": "^6.0.0",
     "axios": "^1.6.0",
     "bcrypt": "^6.0.0",

@@ -1,13 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
-
+import { Drawer } from '../shared/drawer/drawer';
 @Component({
   selector: 'app-card-new',
   standalone: true,
-  imports: [CommonModule, QuillModule, FormsModule],
+  imports: [CommonModule, QuillModule, FormsModule, Drawer],
   templateUrl: './card-new.html',
   styleUrls: ['./card-new.css'],
 })
@@ -16,7 +16,7 @@ export class CardNew {
   quillComp?: QuillEditorComponent;
 
   html = 'THIS IS THE BACK OF THE CARD<br>this is an image<br><img src="http://localhost:3000/uploads/99ad6a5e-dcb9-49e7-ac62-d7e0fea3fa3f.jpg">' as any;
-
+  open = signal(false);
   // Toolbar + handler custom para imagen
   modules = {
     toolbar: {
@@ -24,6 +24,7 @@ export class CardNew {
         ['bold', 'italic', 'underline', 'strike'],
         [{ header: [1, 2, 3, false] }],
         [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ color: [] }, { background: [] }], // 🎨 color de texto y fondo
         ['blockquote', 'code-block'],
         ['link', 'image'],
         ['clean'],

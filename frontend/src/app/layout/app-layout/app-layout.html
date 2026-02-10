@@ -1,0 +1,85 @@
+<tui-root tuiTheme="dark">
+
+  <!-- HEADER -->
+  <header tuiNavigationHeader>
+
+    <button
+      tuiIconButton
+      iconStart="@tui.menu"
+      type="button"
+      (click)="toggleDrawer()"
+    ></button>
+
+    <span tuiNavigationLogo>
+      <span tuiFade>My App</span>
+    </span>
+
+  </header>
+
+  <!-- BODY -->
+  <div class="layout">
+
+    <!-- SIDENAV -->
+    <aside [tuiNavigationAside]="drawerOpen">
+
+      <header>
+        <button
+          iconStart="@tui.home"
+          tuiAsideItem
+          type="button"
+        >
+          <span tuiFade>Home</span>
+        </button>
+      </header>
+
+      <button iconStart="@tui.search" tuiAsideItem type="button">
+        Search
+      </button>
+
+      <button iconStart="@tui.users" tuiAsideItem type="button">
+        Groups
+      </button>
+
+      <tui-aside-group [(open)]="settingsOpen">
+        <button
+          iconStart="@tui.settings"
+          tuiAsideItem
+          tuiChevron
+          type="button"
+        >
+          Settings
+          <ng-template>
+            <button tuiAsideItem type="button">Account</button>
+            <button tuiAsideItem type="button">Notifications</button>
+            <button tuiAsideItem type="button">Privacy</button>
+          </ng-template>
+        </button>
+      </tui-aside-group>
+
+      <hr />
+
+      <footer>
+        <button iconStart="@tui.star" tuiAsideItem type="button">
+          Favorites
+        </button>
+
+        <button
+          tuiAsideItem
+          type="button"
+          iconStart="@tui.chevron-left"
+          (click)="toggleDrawer()"
+        >
+          Collapse
+        </button>
+      </footer>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content" tuiNavigationMain>
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</tui-root>
