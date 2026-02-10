@@ -1,79 +1,81 @@
 <tui-root tuiTheme="dark">
 
   <!-- HEADER -->
-  <header tuiNavigationHeader>
+<header tuiNavigationHeader>
 
-    <button
-      tuiIconButton
-      iconStart="@tui.menu"
-      type="button"
-      (click)="toggleDrawer()"
-    ></button>
+  <span tuiNavigationLogo>
+    <span tuiFade class="lumen-font">Lumen</span>
+    <tui-badge appearance="accent"><p class="lumen-font">Beta</p></tui-badge>
+  </span>
 
-    <span tuiNavigationLogo>
-      <span tuiFade>My App</span>
-    </span>
-
-  </header>
+</header>
 
   <!-- BODY -->
   <div class="layout">
 
     <!-- SIDENAV -->
-    <aside [tuiNavigationAside]="drawerOpen">
+<aside [tuiNavigationAside]="drawerOpen">
 
-      <header>
-        <button
-          iconStart="@tui.home"
-          tuiAsideItem
-          type="button"
-        >
-          <span tuiFade>Home</span>
-        </button>
-      </header>
+  <!-- Seccion principal -->
+  <section>
+    <button
+      iconStart="@tui.home"
+      tuiAsideItem
+      type="button"
+      routerLink="/home"
+    >
+      Home
+    </button>
 
-      <button iconStart="@tui.search" tuiAsideItem type="button">
-        Search
-      </button>
+    <button iconStart="@tui.search" tuiAsideItem type="button">
+      Search
+    </button>
 
-      <button iconStart="@tui.users" tuiAsideItem type="button">
-        Groups
-      </button>
+    <button iconStart="@tui.users" tuiAsideItem type="button">
+      Groups
+    </button>
+  </section>
 
-      <tui-aside-group [(open)]="settingsOpen">
-        <button
-          iconStart="@tui.settings"
-          tuiAsideItem
-          tuiChevron
-          type="button"
-        >
-          Settings
-          <ng-template>
-            <button tuiAsideItem type="button">Account</button>
-            <button tuiAsideItem type="button">Notifications</button>
-            <button tuiAsideItem type="button">Privacy</button>
-          </ng-template>
-        </button>
-      </tui-aside-group>
+  <hr />
 
-      <hr />
+  <!-- Config -->
+  <tui-aside-group [(open)]="settingsOpen">
+    <button
+      iconStart="@tui.settings"
+      tuiAsideItem
+      tuiChevron
+      type="button"
+    >
+      Settings
+      <ng-template>
+        <button tuiAsideItem type="button">Account</button>
+        <button tuiAsideItem type="button">Notifications</button>
+        <button tuiAsideItem type="button">Privacy</button>
+      </ng-template>
+    </button>
+  </tui-aside-group>
 
-      <footer>
-        <button iconStart="@tui.star" tuiAsideItem type="button">
-          Favorites
-        </button>
+  <hr />
 
-        <button
-          tuiAsideItem
-          type="button"
-          iconStart="@tui.chevron-left"
-          (click)="toggleDrawer()"
-        >
-          Collapse
-        </button>
-      </footer>
+  <!-- Footer -->
+  <footer>
+    <button iconStart="@tui.star" tuiAsideItem type="button">
+      Favorites
+      <tui-badge appearance="accent">3</tui-badge>
+    </button>
 
-    </aside>
+    <button
+      tuiAsideItem
+      type="button"
+      iconStart="@tui.chevron-left"
+      (click)="toggleDrawer()"
+    >
+      Collapse
+    </button>
+  </footer>
+
+</aside>
+
 
     <!-- MAIN CONTENT -->
     <main class="content" tuiNavigationMain>

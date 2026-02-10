@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
-import { Drawer } from '../shared/drawer/drawer';
 @Component({
   selector: 'app-card-new',
   standalone: true,
-  imports: [CommonModule, QuillModule, FormsModule, Drawer],
+  imports: [CommonModule, QuillModule, FormsModule],
   templateUrl: './card-new.html',
   styleUrls: ['./card-new.css'],
 })

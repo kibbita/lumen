@@ -1,9 +1,35 @@
 .layout {
   display: flex;
-  height: calc(100vh - 3.5rem); /* altura del header */
+  height: calc(100vh - 3rem); /* altura del header */
 }
 
 .content {
   flex: 1;
   overflow: auto;
+}
+
+.layout {
+  display: flex;
+  height: calc(100vh - 3rem);
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+.aside-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.aside-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.5rem;
+}
+
+.drawer-content {
+  width: 280px;
+  height: 100%;
+  padding: 1rem;
 }
