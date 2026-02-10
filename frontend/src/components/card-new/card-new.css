@@ -39,3 +39,10 @@
 .editor-content p {
   margin: 0 0 0.75em;
 }
+
+
+.preview img,
+.ql-editor img {
+  max-width: 100%;
+  height: auto;
+}

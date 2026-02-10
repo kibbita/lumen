@@ -8,11 +8,12 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import "reflect-metadata";
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);  const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
 
@@ -39,6 +40,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+    app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads',
+  });
 
   await app.listen(port);
   Logger.log(

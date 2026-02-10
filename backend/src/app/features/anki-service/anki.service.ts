@@ -120,16 +120,50 @@ export class AnkiService {
 
       return mediaReplaceMap;
   }
+  
+private replaceMedia(html: string, map: Record<string, string>) {
+  let result = html;
 
-  private replaceMedia(html: string, map: Record<string, string>) {
-    let result = html;
+  const BASE_URL = process.env.PUBLIC_URL ?? 'http://localhost:3000';
 
-    for (const [oldName, newName] of Object.entries(map)) {
-      result = result.replaceAll(oldName, newName);
-    }
+  // 1️⃣ NORMALIZAR HTML DE ANKI (saca el backslash)
+  result = result.replace(/\\</g, '<');
 
-    return result;
+  // 2️⃣ Reemplazar nombres originales por los nuevos filenames
+  for (const [oldName, newName] of Object.entries(map)) {
+    result = result.replaceAll(oldName, newName);
   }
+
+  // 3️⃣ Normalizar <img src="..."> a URL absoluta de la API
+  result = result.replace(
+    /<img\s+[^>]*src="([^"]+)"/g,
+    (match, src) => {
+      // ya es URL absoluta
+      if (src.startsWith('http')) {
+        return match;
+      }
+
+      // si venia como /uploads/xxx.jpg
+      if (src.startsWith('/uploads/')) {
+        return match.replace(
+          `src="${src}"`,
+          `src="${BASE_URL}${src}"`
+        );
+      }
+
+      // si venia solo como filename.jpg
+      return match.replace(
+        `src="${src}"`,
+        `src="${BASE_URL}/uploads/${src}"`
+      );
+    }
+  );
+
+  return result;
+}
+
+
+
 
 private deleteApkgFiles(unzipperdFolder: string) {
   const uploadsPath = path.join(process.cwd(), "uploads");

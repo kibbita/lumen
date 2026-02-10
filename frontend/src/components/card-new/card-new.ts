@@ -15,7 +15,7 @@ export class CardNew {
   @ViewChild(QuillEditorComponent, { static: false })
   quillComp?: QuillEditorComponent;
 
-  html = '' as any;
+  html = 'THIS IS THE BACK OF THE CARD<br>this is an image<br><img src="http://localhost:3000/uploads/99ad6a5e-dcb9-49e7-ac62-d7e0fea3fa3f.jpg">' as any;
 
   // Toolbar + handler custom para imagen
   modules = {
