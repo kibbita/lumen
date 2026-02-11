@@ -17,6 +17,12 @@
   font-family: "Rubik Mono One", monospace;
   font-style: normal;
 }
+
+.lumen-font-small {
+  font-family: "Rubik Mono One", monospace;
+  font-style: normal;
+  font-size: smaller;
+}
 .divider {
   margin: 3rem 0;
   height: 1px;
@@ -27,3 +33,32 @@
     transparent
   );
 }
+
+/* VARIABLES */
+:root {
+  --sidenav-hover-bg:
+    radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #0b1220 100%
+    );
+}
+
+
+/* THEME CONFIG */
+[tuiTheme='dark'] {
+  --tui-background-accent-2: #7c3aed !important; /* ACCENT COLOR */
+ --tui-background-neutral-1-hover: var(--sidenav-hover-bg) !important; /* HOVER / SELECTED NAVBAR */
+}
+
+[tuiTheme='light'] {
+  --tui-background-accent-2: #7c3aed !important;
+  --tui-background-neutral-1-hover: var(--sidenav-hover-bg) !important;
+}
+
+

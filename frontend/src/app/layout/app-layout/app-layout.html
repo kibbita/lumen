@@ -1,5 +1,4 @@
-<tui-root tuiTheme="dark">
-
+<tui-root [attr.tuiTheme]="themeService.selectedTheme">
   <!-- HEADER -->
 <header tuiNavigationHeader>
 
@@ -8,31 +7,65 @@
     <tui-badge appearance="accent"><p class="lumen-font">Beta</p></tui-badge>
   </span>
 
+    <!-- Spacer -->
+    <span class="header-spacer"></span>
+    <lucide-icon [name]="moon" size="20" strokeWidth="1.75"></lucide-icon>
+    <input
+        tuiSwitch
+        type="checkbox"
+        [ngModel]="true"
+        [showIcons]="false"
+        (ngModelChange)="themeService.toggleTheme()"
+    />
+    <lucide-icon [name]="sun" size="25" strokeWidth="1.75" style="margin-right: 2rem;"></lucide-icon>
+
 </header>
 
   <!-- BODY -->
   <div class="layout">
 
     <!-- SIDENAV -->
-<aside [tuiNavigationAside]="drawerOpen">
+    <aside [tuiNavigationAside]="drawerOpen">
+    <section>
+	<tui-avatar style="margin-bottom: 0.5rem; margin-left: 0.1rem;"
+    [size]="'s'"
+    appearance="negative"
+    src="@tui.user"
+    />
 
+    @if (drawerOpen){
+    <span class="lumen-font-small" style="margin-left: 0.5rem;">Your username </span>
+
+    }
+    </section>
   <!-- Seccion principal -->
+  <hr />
+
   <section>
     <button
+     class="sidenav-item"
       iconStart="@tui.home"
       tuiAsideItem
       type="button"
       routerLink="/home"
+      routerLinkActive="active"
+
     >
       Home
     </button>
 
-    <button iconStart="@tui.search" tuiAsideItem type="button">
-      Search
+    <button
+     class="sidenav-item"
+    
+     iconStart="@tui.search" tuiAsideItem type="button">
+      Your Decks
     </button>
 
-    <button iconStart="@tui.users" tuiAsideItem type="button">
-      Groups
+    <button iconStart="@tui.users"
+     class="sidenav-item"
+     tuiAsideItem type="button"
+>
+      Your Cards
     </button>
   </section>
 
@@ -41,6 +74,7 @@
   <!-- Config -->
   <tui-aside-group [(open)]="settingsOpen">
     <button
+     class="sidenav-item"
       iconStart="@tui.settings"
       tuiAsideItem
       tuiChevron
@@ -79,7 +113,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="content" tuiNavigationMain>
-      <router-outlet></router-outlet>
+      <router-outlet style="margin-top: 1rem;"></router-outlet>
     </main>
 
   </div>

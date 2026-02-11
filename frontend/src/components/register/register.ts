@@ -11,7 +11,7 @@ import { UserStore } from '../../stores/user.store';
 import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, TuiButton, FormsModule, TuiTextfield, TuiLabel, LucideAngularModule, ReactiveFormsModule, TuiError, TuiLoader],
+  imports: [CommonModule, TuiButton, FormsModule, TuiLabel, LucideAngularModule, ReactiveFormsModule, TuiError, TuiLoader, TuiTextfield],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
