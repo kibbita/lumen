@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TuiIcon, TuiRoot } from '@taiga-ui/core';
 import { LucideAngularModule, Moon, Route, Sun } from 'lucide-angular';
 import {TuiNavigation,} from '@taiga-ui/layout';
@@ -12,15 +12,22 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './app-layout.html',
   styleUrl: './app-layout.css',
 })
-export class AppLayout {
+export class AppLayout implements OnInit{
+
   drawerOpen = true;
   settingsOpen = false;
   selected: any = null;
-
+  isMobile = window.innerWidth < 768;
   //icons
   readonly moon = Moon;
   readonly sun = Sun;
 
+  
+  ngOnInit() {
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth < 768;
+    });
+  }
 
   themeService = inject(ThemeService);
 

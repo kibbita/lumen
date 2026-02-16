@@ -2,22 +2,37 @@
   <!-- HEADER -->
 <header tuiNavigationHeader>
 
+<header tuiNavigationHeader>
+
+  <!-- Mobile burger -->
+   @if (isMobile) {
+      <button
+    tuiIconButton
+    iconStart="@tui.menu"
+    (click)="toggleDrawer()"
+  ></button>
+
+   }
+
   <span tuiNavigationLogo>
     <span tuiFade class="lumen-font">Lumen</span>
-    <tui-badge appearance="accent"><p class="lumen-font">Beta</p></tui-badge>
+    <tui-badge appearance="accent">Beta</tui-badge>
   </span>
 
-    <!-- Spacer -->
-    <span class="header-spacer"></span>
-    <lucide-icon [name]="moon" size="20" strokeWidth="1.75"></lucide-icon>
-    <input
-        tuiSwitch
-        type="checkbox"
-        [ngModel]="true"
-        [showIcons]="false"
-        (ngModelChange)="themeService.toggleTheme()"
-    />
-    <lucide-icon [name]="sun" size="25" strokeWidth="1.75" style="margin-right: 2rem;"></lucide-icon>
+  <span class="header-spacer"></span>
+
+  <!-- Theme toggle -->
+  <lucide-icon [name]="moon" size="20"></lucide-icon>
+  <input
+    tuiSwitch
+    type="checkbox"
+    [ngModel]="themeService.selectedTheme !== 'dark'"
+    (ngModelChange)="themeService.toggleTheme()"
+  />
+  <lucide-icon [name]="sun" size="25"></lucide-icon>
+
+</header>
+
 
 </header>
 
@@ -25,7 +40,10 @@
   <div class="layout">
 
     <!-- SIDENAV -->
-    <aside [tuiNavigationAside]="drawerOpen">
+<aside
+  [tuiNavigationAside]="!isMobile && drawerOpen"
+  [class.mobile-aside]="isMobile"
+>
     <section>
 	<tui-avatar style="margin-bottom: 0.5rem; margin-left: 0.1rem;"
     [size]="'s'"
@@ -33,7 +51,7 @@
     src="@tui.user"
     />
 
-    @if (drawerOpen){
+    @if (drawerOpen && !isMobile){
     <span class="lumen-font-small" style="margin-left: 0.5rem;">Your username </span>
 
     }
@@ -98,6 +116,7 @@
       <tui-badge appearance="accent">3</tui-badge>
     </button>
 
+    @if(!isMobile){
     <button
       tuiAsideItem
       type="button"
@@ -106,6 +125,8 @@
     >
       Collapse
     </button>
+    }
+
   </footer>
 
 </aside>
