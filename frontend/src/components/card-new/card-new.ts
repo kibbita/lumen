@@ -1,21 +1,33 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
+import { TuiButtonGroup, TuiConnected, TuiStepper } from '@taiga-ui/kit';
+import { TuiAppearance, TuiButton, TuiIcon, TuiTextfield } from '@taiga-ui/core';
 @Component({
   selector: 'app-card-new',
   standalone: true,
-  imports: [CommonModule, QuillModule, FormsModule],
+  imports: [CommonModule, QuillModule, FormsModule, TuiStepper, TuiConnected, TuiIcon, TuiButtonGroup, TuiAppearance, TuiTextfield],
   templateUrl: './card-new.html',
   styleUrls: ['./card-new.css'],
 })
-export class CardNew {
+export class CardNew implements OnInit {
   @ViewChild(QuillEditorComponent, { static: false })
   quillComp?: QuillEditorComponent;
 
-  html = 'THIS IS THE BACK OF THE CARD<br>this is an image<br><img src="http://localhost:3000/uploads/99ad6a5e-dcb9-49e7-ac62-d7e0fea3fa3f.jpg">' as any;
+  backhtml = '' as any;
+  fronthtml = '' as any;
+  nameValue = '';
   open = signal(false);
+  activeIndex = signal<number>(0);
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.activeIndex.set(0);
+  }
+
   // Toolbar + handler custom para imagen
   modules = {
     toolbar: {
@@ -34,10 +46,8 @@ export class CardNew {
     },
   };
 
-  constructor(private http: HttpClient) {}
 
   private get quill() {
-    // ngx-quill expone la instancia real en `quillEditor`
     return this.quillComp?.quillEditor;
   }
 
@@ -67,12 +77,21 @@ export class CardNew {
     const form = new FormData();
     form.append('file', file);
 
-    // Ajusta el endpoint a tu backend
     const res = await this.http
       .post<{ url: string }>('http://localhost:3000/file-upload/upload', form)
       .toPromise();
 
     if (!res?.url) throw new Error('Upload failed: missing url');
-    return res.url; // esto termina como <img src="...">
+    return res.url; 
+  }
+
+  navigateLeft(){
+    if (this.activeIndex() == 0) return;
+    this.activeIndex.set(this.activeIndex()-1);
+  }
+
+  navigateRight(){
+    if (this.activeIndex() == 3) return;
+    this.activeIndex.set(this.activeIndex()+1);
   }
 }

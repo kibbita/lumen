@@ -8,6 +8,13 @@
   overflow: auto;
 }
 
+.page-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+
 .aside-content {
   flex: 1;
   overflow: auto;

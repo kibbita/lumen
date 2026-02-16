@@ -1,10 +1,125 @@
-<quill-editor
-  [(ngModel)]="html"
+
+
+<tui-stepper [activeItemIndex]="activeIndex()"
+orientation="horizontal"
+tuiConnected
+>
+    <button tuiStep [disabled]="true">Naming</button>
+    <button tuiStep [disabled]="true">Card Front</button>
+    <button tuiStep [disabled]="true">Card Back</button>
+    <button tuiStep [disabled]="true">Finish</button>
+
+</tui-stepper>
+
+<br>
+
+@if (activeIndex()==0) {
+<section id="namingSection" style="margin-top: 3rem;">
+	<tui-textfield
+	    iconStart="@tui.file"
+	>
+	    <label tuiLabel>Name your deck</label>
+	    <input
+          style="width: 90%;"
+	        tuiTextfield
+	        [(ngModel)]="nameValue"
+	    />
+	</tui-textfield>
+</section>
+}
+
+@if (activeIndex()==1) {
+<section id="frontCardSection">
+
+  <quill-editor class="quill"
+  [(ngModel)]="fronthtml"
   [modules]="modules"
   theme="snow"
-  [sanitize]="false"
->
-</quill-editor>
+  [sanitize]="true"
+  >
+  </quill-editor>
 
-<h3>HTML output</h3>
-<pre>{{ html }}</pre>
+</section>
+
+}
+
+@if (activeIndex()==2) {
+<section id="backCardSection">
+
+<quill-editor class="quill"
+  [(ngModel)]="backhtml"
+  [modules]="modules"
+  theme="snow"
+  [sanitize]="true"
+  >
+  </quill-editor>
+
+</section>
+}
+
+@if (activeIndex()==3) {
+<section id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
+
+  <!-- Nombre -->
+  <div>
+    <h3>Deck Name</h3>
+    <tui-textfield >
+      <input
+      style="width: 90%;"
+        tuiTextfield
+        [ngModel]="nameValue"
+        [readOnly]="true"
+      />
+    </tui-textfield>
+  </div>
+
+  <!-- Card Front -->
+  <div>
+    <h3>Card Front</h3>
+    <quill-editor
+      class="quill"
+      [ngModel]="fronthtml"
+      theme="snow"
+      [readOnly]="true"
+      [modules]="{ toolbar: false }"
+      [sanitize]="true">
+    </quill-editor>
+  </div>
+
+  <!-- Card Back -->
+  <div>
+    <h3>Card Back</h3>
+    <quill-editor
+      class="quill"
+      [ngModel]="backhtml"
+      theme="snow"
+      [readOnly]="true"
+      [modules]="{ toolbar: false }"
+      [sanitize]="true">
+    </quill-editor>
+  </div>
+
+
+  	<button
+      style="width: 90%; background-color: var(--tui-background-accent-2); color: white;"
+	    tuiButton
+	    type="button">
+	    Save Deck
+	</button>
+</section>
+}
+
+	<div class="navigation-buttons"
+	    tuiAppearance="floating"
+	    tuiButtonGroup
+	>
+	    <button type="button" (click)="navigateLeft()">
+	        <tui-icon icon="@tui.circle-arrow-left" />
+	        Previous
+	    </button>
+	 
+	    <button type="button" (click)="navigateRight()">
+	        <tui-icon icon="@tui.circle-arrow-right" />
+	        Next
+	    </button>
+	</div>
