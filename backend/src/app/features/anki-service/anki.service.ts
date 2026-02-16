@@ -143,6 +143,8 @@ private replaceMedia(html: string, map: Record<string, string>) {
         return match;
       }
 
+
+      console.log(src, 'src imagen');
       // si venia como /uploads/xxx.jpg
       if (src.startsWith('/uploads/')) {
         return match.replace(

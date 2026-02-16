@@ -5,6 +5,8 @@ import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import { TuiButtonGroup, TuiConnected, TuiStepper } from '@taiga-ui/kit';
 import { TuiAppearance, TuiButton, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import { FileService } from '../../services/file.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-card-new',
   standalone: true,
@@ -17,12 +19,12 @@ export class CardNew implements OnInit {
   quillComp?: QuillEditorComponent;
 
   backhtml = '' as any;
-  fronthtml = '' as any;
+  fronthtml = 'THIS IS THE BACK OF THE CARD<br>this is an image<br><img src="http://localhost:3000/uploads/53de1003-6db1-45d9-b6eb-9dfb6e74e1a4.jpg">' as any;
   nameValue = '';
   open = signal(false);
   activeIndex = signal<number>(0);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private fileService:FileService) {}
 
   ngOnInit(): void {
     this.activeIndex.set(0);
@@ -73,17 +75,16 @@ export class CardNew implements OnInit {
     input.click();
   }
 
-  private async uploadImage(file: File): Promise<string> {
-    const form = new FormData();
-    form.append('file', file);
+private async uploadImage(file: File): Promise<string> {
+  const form = new FormData();
+  form.append('file', file);
 
-    const res = await this.http
-      .post<{ url: string }>('http://localhost:3000/file-upload/upload', form)
-      .toPromise();
+  const resp: any = await firstValueFrom(
+    this.fileService.uploadFile(form)
+  );
 
-    if (!res?.url) throw new Error('Upload failed: missing url');
-    return res.url; 
-  }
+  return `http://localhost:3000/uploads/${resp.fileName}`;
+}
 
   navigateLeft(){
     if (this.activeIndex() == 0) return;
