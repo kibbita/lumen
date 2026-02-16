@@ -13,22 +13,8 @@ tuiConnected
 
 <br>
 
-@if (activeIndex()==0) {
-<section id="namingSection" style="margin-top: 3rem;">
-	<tui-textfield
-	    iconStart="@tui.file"
-	>
-	    <label tuiLabel>Name your deck</label>
-	    <input
-          style="width: 90%;"
-	        tuiTextfield
-	        [(ngModel)]="nameValue"
-	    />
-	</tui-textfield>
-</section>
-}
 
-@if (activeIndex()==1) {
+@if (activeIndex()==0) {
 <section id="frontCardSection">
 
   <quill-editor class="quill"
@@ -43,7 +29,7 @@ tuiConnected
 
 }
 
-@if (activeIndex()==2) {
+@if (activeIndex()==1) {
 <section id="backCardSection">
 
 <quill-editor class="quill"
@@ -58,7 +44,7 @@ tuiConnected
 </section>
 }
 
-@if (activeIndex()==3) {
+@if (activeIndex()==2) {
 <section id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
 
   <!-- Nombre -->

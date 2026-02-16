@@ -19,7 +19,7 @@ export class CardNew implements OnInit {
   quillComp?: QuillEditorComponent;
 
   backhtml = '' as any;
-  fronthtml = 'THIS IS THE BACK OF THE CARD<br>this is an image<br><img src="http://localhost:3000/uploads/53de1003-6db1-45d9-b6eb-9dfb6e74e1a4.jpg">' as any;
+  fronthtml = '' as any;
   nameValue = '';
   open = signal(false);
   activeIndex = signal<number>(0);
@@ -92,7 +92,7 @@ private async uploadImage(file: File): Promise<string> {
   }
 
   navigateRight(){
-    if (this.activeIndex() == 3) return;
+    if (this.activeIndex() == 2) return;
     this.activeIndex.set(this.activeIndex()+1);
   }
 }
