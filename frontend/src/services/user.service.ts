@@ -3,6 +3,8 @@ import { environment } from '../environments/environment';
 import { LoginPostDto } from '../models/loginPostDto';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserPostDto } from '../models/userPostDto';
+import { Observable } from 'rxjs';
+import { UserGetDto } from '../models/userGetDto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +17,9 @@ export class UserService {
     
   register(data: UserPostDto) {
     return this.http.post(`${this.apiUrl}/users`, data);
+  }
+
+  getMe(): Observable<UserGetDto> {
+    return this.http.get<UserGetDto>(`${this.apiUrl}/users/me`);
   }
 }

@@ -6,10 +6,15 @@ export const authGuard: CanActivateFn = () => {
 
   const token = localStorage.getItem('access_token');
 
-  if (!token) {
+  if (!token || tokenExpired(token)) {
     router.navigate(['/login']);
     return false;
   }
 
   return true;
 };
+
+export function tokenExpired(token: string) {
+  const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+  return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+}

@@ -5,6 +5,7 @@ import {TuiNavigation,} from '@taiga-ui/layout';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';import {TuiAvatar, TuiBadge, TuiBadgeNotification, TuiSwitch} from '@taiga-ui/kit';
 import { ThemeService } from '../../../services/theme.service';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
 @Component({
   selector: 'app-app-layout',
   imports: [RouterLink, RouterOutlet,
@@ -18,15 +19,19 @@ export class AppLayout implements OnInit{
   settingsOpen = false;
   selected: any = null;
   isMobile = window.innerWidth < 768;
+  userName: string = '';
   //icons
   readonly moon = Moon;
   readonly sun = Sun;
 
+  private userService = inject(UserService);
   
   ngOnInit() {
     window.addEventListener('resize', () => {
       this.isMobile = window.innerWidth < 768;
     });
+
+    this.getLoggedUser();
   }
 
   themeService = inject(ThemeService);
@@ -37,5 +42,16 @@ export class AppLayout implements OnInit{
 
   toggleTheme(){
     this.themeService.toggleTheme();
+  }
+
+  getLoggedUser(){
+    this.userService.getMe().subscribe({
+      next: (resp) => {
+        this.userName = resp.username;
+      }, 
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }

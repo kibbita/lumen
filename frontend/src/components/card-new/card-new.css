@@ -68,7 +68,12 @@
   width: 90%;
 }
 
-.navigation-buttons {
-  margin-top: 4rem;
-  width: 90%;
+::ng-deep button {
+    font-family: "Rubik Mono One", monospace !important;
+  font-style: normal !important; 
+  font-size: smaller !important;
+}
+
+::ng-deep .t-heading_closable {
+  font-family: "Rubik Mono One", monospace !important;
 }

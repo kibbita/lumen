@@ -44,7 +44,8 @@ export class DecksService {
 
         const entities= await qb.getMany(); 
         return entities.map(deck => ({
-            name: deck.name 
+            name: deck.name,
+            id: deck.id
         }));
     }
 
