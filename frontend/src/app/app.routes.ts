@@ -7,6 +7,7 @@ import { authGuard } from '../guards/auth.guard';
 import { CardNew } from '../components/card-new/card-new';
 import { AppLayout } from './layout/app-layout/app-layout';
 import { PublicLayout } from './layout/public-layout/public-layout';
+import { DeckList } from '../components/deck-list/deck-list';
 
 export const appRoutes: Route[] = [
 
@@ -29,6 +30,7 @@ export const appRoutes: Route[] = [
     children: [
       { path: 'home', component: Home },
       { path: 'card-new', component: CardNew },
+      { path: 'deck-list', component: DeckList },
     ],
   },
 

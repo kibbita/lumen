@@ -1,0 +1,82 @@
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 0.5fr);
+  gap: 0.5rem;
+  row-gap: 0.1rem;
+}
+
+/* Contenedor */
+.deck-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  perspective: 900px;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+
+/* CARTA GRANDE */
+.deck-image {
+  width: 110%;   /* mucho mas protagonista */
+  height: auto;
+
+  transition:
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    filter 0.45s ease,
+    box-shadow 0.45s ease;
+
+  border-radius: 10px;
+}
+
+.deck-name {
+  position: absolute;
+  bottom: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+
+  padding: 0.4rem 1.1rem;
+  border-radius: 10px;
+
+  background: rgba(10, 10, 20, 0.45);
+  backdrop-filter: blur(10px);
+
+  transition:
+    transform 0.4s cubic-bezier(.2,.8,.2,1),
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    color 0.4s ease;
+}
+
+
+
+.deck-card:hover .deck-image {
+  transform:
+    translateY(-14px)
+    scale(1.08)
+    rotateX(6deg)
+    rotateZ(-1.5deg);
+
+  filter:
+    drop-shadow(0 30px 40px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 40px rgba(80, 120, 255, 0.25));
+}
+.deck-card:hover .deck-name {
+  transform: translateY(-4px) scale(1.03);
+  color: #ffffff;
+
+  background: rgba(15, 15, 30, 0.65);
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(80, 120, 255, 0.25);
+}

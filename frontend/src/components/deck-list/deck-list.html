@@ -1,0 +1,24 @@
+<h1 class="lumen-font">YOUR DECKS</h1>
+<tui-textfield>
+    <label tuiLabel for="search">Search</label>
+    <input placeholder="Search decks" tuiTextfield type="text" id="search"/>
+    <tui-icon icon="@tui.search"></tui-icon>
+</tui-textfield>
+
+<div class="deck-grid" style="margin-top: 2rem;">
+  @for (deck of decks(); track deck.id) {
+    <div class="deck-card">
+
+      <img
+        class="deck-image"
+        src="assets/card-backs/base.png"
+        alt="Deck back"
+      />
+
+      <div class="deck-name lumen-font">
+        {{ deck.name }}
+      </div>
+
+    </div>
+  }
+</div>
