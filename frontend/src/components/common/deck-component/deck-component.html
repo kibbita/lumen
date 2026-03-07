@@ -1,0 +1,20 @@
+   <div
+        tuiCardLarge
+        tuiSurface="floating"
+        class="custom-card"
+        style="background-color: black;"
+    >
+        <header tuiHeader>
+            <h2 class="lumen-font" style="color: white;">{{deck()?.name}}</h2>
+        </header>
+ 
+
+	<tui-chip
+    appearance="custom"
+    iconEnd="@tui.chevrons-right"
+    class="lumen-font"
+    style="color: white;"
+>
+    {{deck()?.cardQuantity}} Cards
+</tui-chip>
+    </div>

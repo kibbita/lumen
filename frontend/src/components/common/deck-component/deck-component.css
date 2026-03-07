@@ -1,0 +1,70 @@
+.custom-card {
+  position: relative; /* needed for spots */
+  padding: 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+
+  /* background */
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.65)
+    ),
+    url("/assets/images/card-bg.jpg") center/cover no-repeat;
+
+  /* layout */
+  display: flex;
+  align-items: flex-end;
+  min-height: 180px;
+
+  /* effects */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* big decorative spot */
+.custom-card::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  background: #f9ff9e;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+/* small decorative spot */
+.custom-card::after {
+  content: "";
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  width: 16px;
+  height: 16px;
+  background: #f9ff9e;
+  border-radius: 50%;
+}
+
+
+
+.custom-card h1,
+.custom-card h2 {
+  margin: 0;
+  color: white;
+}
+
+.custom-card [tuiSubtitle] {
+  opacity: 0.8;
+}
+
+	[data-appearance='custom'] {
+    color: #fff;
+    background-image: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+    font-weight: bold;
+}
