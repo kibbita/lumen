@@ -1,9 +1,9 @@
 import { Component, computed, DestroyRef, inject, OnInit, Signal, signal, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButtonGroup, TuiCheckbox, TuiChevron, TuiComboBox, TuiConnected, TuiDataListWrapper, TuiFilterByInputPipe, TuiStepper, TuiTooltip } from '@taiga-ui/kit';
-import { TuiAppearance, TuiButton, TuiDataList, TuiDialog, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import { TuiAppearance, TuiButton, TuiDataList, TuiDialog, TuiIcon, TuiLink, TuiTextfield } from '@taiga-ui/core';
 import { FileService } from '../../services/file.service';
 import { firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,11 +13,13 @@ import { CardService } from '../../services/card.service';
 import { DeckGetDto } from '../../models/deckGetDto';
 import { ToastService } from '../../services/toast.service';
 import { CardPostDto } from '../../models/cardPostDto';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-card-new',
   standalone: true,
   imports: [CommonModule, 
     QuillModule,
+    TuiLink,
     FormsModule,
     TuiStepper, 
     ReactiveFormsModule,
@@ -64,7 +66,7 @@ get selectedDeckName(): string {
   toastService = inject(ToastService);
   private destroyRef = inject(DestroyRef);
 
-  constructor(private fileService:FileService, private fb: FormBuilder,) {
+  constructor(private fileService:FileService, private fb: FormBuilder, private location: Location) {
     this.form = this.fb.group({
       deckId: [null, Validators.required],
       frontContent: ['', Validators.required],
@@ -157,7 +159,7 @@ private async uploadImage(file: File): Promise<string> {
     this.fileService.uploadFile(form)
   );
 
-  return `http://localhost:3000/uploads/${resp.fileName}`;
+    return `${environment.apibaseUrl}/uploads/${resp.fileName}`;
 }
 
   navigateLeft(){
@@ -187,6 +189,10 @@ private async uploadImage(file: File): Promise<string> {
       }
     });
 
+  }
+
+  navigateBack(){
+    this.location.back();
   }
 
   saveCard() {

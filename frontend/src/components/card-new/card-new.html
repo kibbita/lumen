@@ -1,6 +1,11 @@
+<a
+  iconStart="@tui.chevron-left"
+  tuiLink
+  [textContent]="'Back'"
+  (click)="navigateBack()"
+></a>
 
-
-<tui-stepper [activeItemIndex]="activeIndex()" style="width: 90%;"
+<tui-stepper [activeItemIndex]="activeIndex()" style="width: 90%; margin-top: 3rem;" 
 orientation="horizontal"
 tuiConnected
 >

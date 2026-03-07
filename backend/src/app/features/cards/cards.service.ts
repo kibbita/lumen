@@ -67,7 +67,6 @@ async updateCard(id: number, data: Partial<CardPutDto>): Promise<CardGetDto | nu
   await qb.update().set({
       frontContent: data.frontContent,
       backContent: data.backContent,
-      deck: data.id ? { id: data.id } : undefined
     })
     .where('id = :id', { id })
     .execute();
@@ -81,8 +80,8 @@ async updateCard(id: number, data: Partial<CardPutDto>): Promise<CardGetDto | nu
 
   return {
     id: updated.id!,
-    deckId: updated.deck.id!,
     frontContent: updated.frontContent!,
+    deckId: updated.deck.id,
     backContent: updated.backContent!,
   };
 }

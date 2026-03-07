@@ -1,5 +1,7 @@
 import { CardPostDto } from "./cardPostDto";
 
-export class CardPutDto extends CardPostDto {
+export class CardPutDto  {
     id!: number;
+    backContent!: string;
+    frontContent!: string;
 }

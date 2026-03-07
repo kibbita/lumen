@@ -4,7 +4,7 @@
   [textContent]="'Deck Detail'"
   (click)="navigateBack()"
 ></a>
-<section id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
+<section [formGroup]="form" id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem;">
 
     <div style="justify-content: space-between; align-items: center; display: flex;">
     <h2 class="lumen-font">Card Detail</h2>
@@ -26,15 +26,17 @@
       [ngModel]="card()?.frontContent"
       [modules]="modules"
       class="quill-summary"
+      formControlName="frontContent"
       theme="snow"
 
     ></quill-editor>
-  </div>
+  </div>  
 
   <!-- Back Card Content -->
   <div class="card-summary">
     <h3 class="lumen-font-small">Back Content</h3>
     <quill-editor
+      formControlName="backContent"
       [ngModel]="card()?.backContent"
       [readOnly]="!isEditing()"
       [modules]="modules"
@@ -45,7 +47,8 @@
 
   <!-- Save Button -->
    @if(this.isEditing()){
-  <button
+  <button (click)="save()"
+    [disabled]="form.invalid"
     style="width: 90%; background-color: var(--tui-background-accent-2); color: white;"
     tuiButton
     class="lumen-font-small"

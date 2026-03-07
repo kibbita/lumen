@@ -23,6 +23,6 @@
 
 @for (card of deckDetail()?.cards; track card) {
 <div tuiCardLarge tuiHeadertuiSurface="floating" style="margin-bottom: 2rem" class="card-container" (click)="navigateToDetail(card.id)">
-  <h2 tuiTitle>{{card.frontContent}}</h2>
+<h2 tuiTitle [innerHTML]="card.frontContent"></h2>
 </div>
 }

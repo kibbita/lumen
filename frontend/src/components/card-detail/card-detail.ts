@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { CardService } from '../../services/card.service';
-import { sign } from 'crypto';
 import { CardGetDto } from '../../models/cardGetDto';
 import { QuillEditorComponent, QuillModule } from 'ngx-quill';
 import { TuiButton, TuiIcon, TuiLink, TuiTextfield } from '@taiga-ui/core';
@@ -12,6 +11,7 @@ import { DeckService } from '../../services/deck.service';
 import { ToastService } from '../../services/toast.service';
 import { UserService } from '../../services/user.service';
 import { FileService } from '../../services/file.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-card-detail',
@@ -24,10 +24,12 @@ export class CardDetail implements OnInit {
     @ViewChild(QuillEditorComponent, { static: false })
   quillComp?: QuillEditorComponent;
 
+  form: FormGroup;
+
   route = inject(ActivatedRoute);
   service = inject(CardService);
   router = inject(Router);
-    userService= inject(UserService);
+  userService= inject(UserService);
   decksService = inject(DeckService);
   cardsService = inject(CardService);
   toastService = inject(ToastService);
@@ -36,18 +38,22 @@ export class CardDetail implements OnInit {
   card: WritableSignal<CardGetDto | null> = signal(null);
   loggedUserId: WritableSignal<number | null> = signal(null);
 
-  constructor(private fileService:FileService){
-
+  constructor(private fileService:FileService, private fb: FormBuilder){
+    this.form = this.fb.group({
+      cardId: [null, Validators.required],
+      frontContent: ['', Validators.required],
+      backContent: ['', Validators.required]
+    })
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id){
       const cardId = Number(id);
+      this.form.patchValue({cardId})
       this.service.getById(cardId).subscribe({
         next: (resp) => {
           this.card.set(resp);
-          console.log(this.card())
         }, 
         error: (err) => {
           console.error(err);
@@ -100,9 +106,13 @@ export class CardDetail implements OnInit {
       this.fileService.uploadFile(form)
     );
   
-    return `http://localhost:3000/uploads/${resp.fileName}`;
+    return `${environment.apibaseUrl}/uploads/${resp.fileName}`;
   }
   
+
+   normalizeHtmlSpaces(html: string): string {
+  return html.replace(/&nbsp;/g, ' ');
+}
 
   navigateBack(){
     this.router.navigate([`decks/${this.card()?.deckId}`])
@@ -127,6 +137,22 @@ export class CardDetail implements OnInit {
       },
     },
   };
+
+  save(){
+    if (this.form.invalid) return;
+    this.cardsService.update({
+      backContent: this.normalizeHtmlSpaces(this.form.value.backContent),
+      id: this.form.value.cardId,
+      frontContent: this.normalizeHtmlSpaces(this.form.value.frontContent)
+    }).subscribe({
+      next: (resp) => {
+        this.toastService.showSuccess('Card updated successfully');
+      },
+      error: (err) => {
+        this.toastService.showError('Error while updating the card');
+      }
+    })
+  }
 
   
 }
