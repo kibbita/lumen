@@ -8,6 +8,8 @@ import { CardNew } from '../components/card-new/card-new';
 import { AppLayout } from './layout/app-layout/app-layout';
 import { PublicLayout } from './layout/public-layout/public-layout';
 import { DeckList } from '../components/deck-list/deck-list';
+import { DeckDetail } from '../components/deck-detail/deck-detail';
+import { CardDetail } from '../components/card-detail/card-detail';
 
 export const appRoutes: Route[] = [
 
@@ -31,6 +33,8 @@ export const appRoutes: Route[] = [
       { path: 'home', component: Home },
       { path: 'card-new', component: CardNew },
       { path: 'deck-list', component: DeckList },
+      { path: 'decks/:id', component: DeckDetail},
+      { path: 'cards/:id', component: CardDetail},
     ],
   },
 

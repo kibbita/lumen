@@ -5,6 +5,7 @@ import { DeckPostDto } from './models/deckPostDto';
 import { DeckGetDto } from './models/deckGetDto';
 import { DeckQuery } from './models/deckQuery';
 import { UserEntity } from '../users/user.entity';
+import { DeckDetailDto } from './models/deckDetailDto';
 
 @Injectable()
 export class DecksService {
@@ -27,8 +28,8 @@ export class DecksService {
 
 
     async find(query: DeckQuery): Promise<DeckGetDto[] | null> {
-        
-        const qb = this.repository.createQueryBuilder('decks');
+        const qb = this.repository.createQueryBuilder('decks')
+            .loadRelationCountAndMap('decks.cardQuantity', 'decks.cards');
 
         if (query.id) {
             qb.andWhere('decks.id = :id', { id: query.id });
@@ -45,9 +46,26 @@ export class DecksService {
         const entities= await qb.getMany(); 
         return entities.map(deck => ({
             name: deck.name,
-            id: deck.id
+            id: deck.id,
+            cardQuantity: (deck as any).cardQuantity
         }));
     }
 
-    
+    async findById(id: number): Promise<DeckDetailDto | null> {
+    const deck = await this.repository
+        .createQueryBuilder('decks')
+        .leftJoinAndSelect('decks.cards', 'cards') 
+        .where('decks.id = :id', { id })          
+        .getOne();                                 
+
+    if (!deck) return null;
+
+    return {
+        id: deck.id,
+        name: deck.name,
+        cards: deck.cards,         
+        cardQuantity: deck.cards.length
+    };
+}
+
 }

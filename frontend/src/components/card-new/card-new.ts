@@ -1,7 +1,7 @@
 import { Component, computed, DestroyRef, inject, OnInit, Signal, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuillModule, QuillEditorComponent } from 'ngx-quill';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButtonGroup, TuiCheckbox, TuiChevron, TuiComboBox, TuiConnected, TuiDataListWrapper, TuiFilterByInputPipe, TuiStepper, TuiTooltip } from '@taiga-ui/kit';
 import { TuiAppearance, TuiButton, TuiDataList, TuiDialog, TuiIcon, TuiTextfield } from '@taiga-ui/core';
 import { FileService } from '../../services/file.service';
@@ -12,6 +12,7 @@ import { DeckService } from '../../services/deck.service';
 import { CardService } from '../../services/card.service';
 import { DeckGetDto } from '../../models/deckGetDto';
 import { ToastService } from '../../services/toast.service';
+import { CardPostDto } from '../../models/cardPostDto';
 @Component({
   selector: 'app-card-new',
   standalone: true,
@@ -38,6 +39,7 @@ import { ToastService } from '../../services/toast.service';
 export class CardNew implements OnInit {
   @ViewChild(QuillEditorComponent, { static: false })
   quillComp?: QuillEditorComponent;
+  form: FormGroup;
 
   backhtml = '' as any;
   fronthtml = '' as any;
@@ -46,21 +48,29 @@ export class CardNew implements OnInit {
   activeIndex = signal<number>(0);
   loggedUserId = signal<number|null>(null);
   decks = signal<DeckGetDto[]>([]);
-  readonly deckSearch = signal('');
+deckSearch = signal('');
   readonly selectedDeck = signal<DeckGetDto|null>(null);
   readonly stringify = (deck: DeckGetDto) => deck.name ?? '';
   protected modalOpen = false;
   protected newDeckName = signal('');
   protected savingDeck = signal<boolean>(false);
   protected savingCard = signal<boolean>(false);
-
+get selectedDeckName(): string {
+  return this.decks().find(d => d.id === this.form.value.deckId)?.name ?? '';
+}
   userService= inject(UserService);
   decksService = inject(DeckService);
   cardsService = inject(CardService);
   toastService = inject(ToastService);
   private destroyRef = inject(DestroyRef);
 
-  constructor(private fileService:FileService) {}
+  constructor(private fileService:FileService, private fb: FormBuilder,) {
+    this.form = this.fb.group({
+      deckId: [null, Validators.required],
+      frontContent: ['', Validators.required],
+      backContent: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.activeIndex.set(0);
@@ -131,7 +141,6 @@ export class CardNew implements OnInit {
     this.decksService.getMine(this.loggedUserId()!).subscribe({
       next: (resp) => {
         this.decks.set(resp);
-        console.log(this.decks());
       },
        error: (err) => {
           console.error(err);
@@ -142,7 +151,7 @@ export class CardNew implements OnInit {
 
 private async uploadImage(file: File): Promise<string> {
   const form = new FormData();
-  form.append('file', file);
+  form.append('file', file);  
 
   const resp: any = await firstValueFrom(
     this.fileService.uploadFile(form)
@@ -180,4 +189,42 @@ private async uploadImage(file: File): Promise<string> {
 
   }
 
+  saveCard() {
+
+    this.form.patchValue({frontContent: this.normalizeHtmlSpaces(this.form.value.frontContent)})
+    this.form.patchValue({backContent: this.normalizeHtmlSpaces(this.form.value.backContent)})
+
+    console.log(this.form.value)
+  const payload = {
+    deckId: this.form.value.deckId,
+    front: this.form.value.frontContent,
+    back: this.form.value.backContent
+  };
+
+  this.cardsService.save(
+    { deckId: payload.deckId,
+      frontContent: payload.front,
+      backContent: payload.back} as CardPostDto)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
+      next: () => this.toastService.showSuccess('Card saved!'),
+      error: err => this.toastService.showError(err)
+    });
+}
+
+  onDeckSelect(deck: DeckGetDto) {
+    this.form.patchValue({ deckId: deck.id });
+  }
+
+  onFrontChange(html: string) {
+    this.form.patchValue({ frontContent: html });
+  }
+
+  onBackChange(html: string) {
+    this.form.patchValue({ backContent: html });
+  }
+
+ normalizeHtmlSpaces(html: string): string {
+  return html.replace(/&nbsp;/g, ' ');
+}
 }

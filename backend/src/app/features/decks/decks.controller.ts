@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
 import { DeckPostDto } from './models/deckPostDto';
 import { DecksService } from './decks.service';
 import type { DeckQuery } from './models/deckQuery';
@@ -17,5 +17,11 @@ export class DecksController {
     @Get()
     async getByFilters(@Query() filters: DeckQuery){
         return await this.service.find(filters);
+    }
+
+    @Get(':id')
+    async getById(@Param('id') id: string) {
+        const deckId = Number(id);
+        return await this.service.findById(deckId);
     }
 }

@@ -4,6 +4,7 @@ import { CardEntity } from './card.entity';
 import { CardPostDto } from './models/cardPostDto';
 import { CardQuery } from './models/cardQuery';
 import { CardGetDto } from './models/cardGetDto';
+import { CardPutDto } from './models/cardPutDto';
 
 @Injectable()
 export class CardsService {
@@ -40,6 +41,51 @@ export class CardsService {
         return entities.map(card => ({
             backContent: card.backContent,
             deckId: card.deck.id,
-            frontContent: card.frontContent
+            frontContent: card.frontContent,
+            id: card.id
         }));
-    }}
+    }
+
+        async getById(id: number): Promise<CardGetDto | null> {
+        
+        const qb = this.repository.createQueryBuilder('cards');
+        qb.leftJoinAndSelect('cards.deck', 'deck');
+        qb.where('cards.id = :id', { id });
+        const entity= await qb.getOne(); 
+        return {
+            backContent: entity?.backContent!,
+            deckId: entity?.deck.id!,
+            frontContent: entity?.frontContent!,
+            id: entity?.id!
+        };
+        
+    }
+
+async updateCard(id: number, data: Partial<CardPutDto>): Promise<CardGetDto | null> {
+  const qb = this.repository.createQueryBuilder('cards');
+
+  await qb.update().set({
+      frontContent: data.frontContent,
+      backContent: data.backContent,
+      deck: data.id ? { id: data.id } : undefined
+    })
+    .where('id = :id', { id })
+    .execute();
+
+  const updated = await this.repository.findOne({
+    where: { id },
+    relations: ['deck'],
+  });
+
+  if (!updated) return null;
+
+  return {
+    id: updated.id!,
+    deckId: updated.deck.id!,
+    frontContent: updated.frontContent!,
+    backContent: updated.backContent!,
+  };
+}
+}
+
+    

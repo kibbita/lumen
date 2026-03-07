@@ -1,0 +1,75 @@
+/* Container styling for the summary section */
+#summarySection {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 90%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header area: title + edit button */
+#summarySection > div:first-child {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+#summarySection h2.lumen-font {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+#summarySection button {
+  background-color: var(--tui-background-accent-2);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+/* Card summary blocks */
+.card-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid var(--tui-border-opaque);
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: var(--tui-background-primary);
+}
+
+/* Card summary headings */
+.card-summary h3.lumen-font-small {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--tui-text-emphasis);
+}
+
+/* Quill editor in read-only mode */
+.quill-summary {
+  background-color: var(--tui-background-secondary);
+  border-radius: 4px;
+  min-height: 120px;
+  padding: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #summarySection {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  #summarySection > div:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+}

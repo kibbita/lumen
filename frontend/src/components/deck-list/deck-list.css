@@ -59,24 +59,10 @@
 
 
 
-.deck-card:hover .deck-image {
-  transform:
-    translateY(-14px)
-    scale(1.08)
-    rotateX(6deg)
-    rotateZ(-1.5deg);
-
-  filter:
-    drop-shadow(0 30px 40px rgba(0, 0, 0, 0.7))
-    drop-shadow(0 0 40px rgba(80, 120, 255, 0.25));
-}
-.deck-card:hover .deck-name {
-  transform: translateY(-4px) scale(1.03);
-  color: #ffffff;
-
-  background: rgba(15, 15, 30, 0.65);
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.6),
-    0 0 25px rgba(80, 120, 255, 0.25);
+.deck-header {
+  display: flex;
+  align-items: center;    
+  justify-content: space-between;
+  gap: 16px;             
+  margin-bottom: 1rem;      
 }

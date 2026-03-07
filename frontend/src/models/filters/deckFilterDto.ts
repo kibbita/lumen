@@ -1,5 +1,5 @@
 export class DeckFilterDto {
-    userId?: string;
+    userId?: number;
     name?: string;
     id?: number;
 }

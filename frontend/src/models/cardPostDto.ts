@@ -1,6 +1,5 @@
-export class CardGetDto {
+export class CardPostDto {
     backContent!: string;
     frontContent!: string;
     deckId!: number;
-    id!: number;
 }

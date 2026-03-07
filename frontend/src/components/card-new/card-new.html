@@ -16,26 +16,25 @@ tuiConnected
 @if (activeIndex()==0) {
 
   <h1 class="lumen-font"> Pick a Deck</h1>
-  <tui-textfield tuiChevron [stringify]="stringify" style="width: 90%;">
-    <input 
+<tui-textfield tuiChevron [stringify]="stringify" style="width: 90%;">
+  <input 
     class="lumen-font-small"
-        placeholder="Browse Decks"
-        tuiComboBox
-        [(ngModel)]="selectedDeck"
+    placeholder="Browse Decks"
+    tuiComboBox
+    [ngModel]="selectedDeck()"
+    (ngModelChange)="onDeckSelect($event)"
+  />
+  <tui-data-list-wrapper
+      *tuiTextfieldDropdown
+      new
+      [items]="decks() | tuiFilterByInput"
+  />
+  <button type="button" tuiButton (click)="showDialog()">
+    <tui-icon
+      icon="@tui.plus"
+      style="color: var(--tui-status-positive); pointer-events: none"
     />
-    <tui-data-list-wrapper
-        *tuiTextfieldDropdown
-        new
-        [items]="decks() | tuiFilterByInput"
-    />
-
-    <button type="button" tuibutton (click)="showDialog()">
-    	    <tui-icon
-	        icon="@tui.plus"
-	        style="color: var(--tui-status-positive); pointer-events: none"
-	    />
-
-    </button>
+  </button>
 </tui-textfield>
 
 	 
@@ -68,13 +67,14 @@ tuiConnected
 @if (activeIndex()==1) {
 <section id="frontCardSection">
 
-  <quill-editor class="quill"
-  [(ngModel)]="fronthtml"
+<quill-editor
+  class="quill"
+  [ngModel]="form.value.frontContent"
+  (ngModelChange)="onFrontChange($event)"
   [modules]="modules"
   theme="snow"
-  [sanitize]="true"
-  >
-  </quill-editor>
+  [sanitize]="true">
+</quill-editor>
 
 </section>
 
@@ -83,13 +83,14 @@ tuiConnected
 @if (activeIndex()==2) {
 <section id="backCardSection">
 
-<quill-editor class="quill"
-  [(ngModel)]="backhtml"
+<quill-editor
+  class="quill"
+  [ngModel]="form.value.backContent"
+  (ngModelChange)="onBackChange($event)"
   [modules]="modules"
   theme="snow"
-  [sanitize]="true"
-  >
-  </quill-editor>
+  [sanitize]="true">
+</quill-editor>
 
   {{backhtml}}
 </section>
@@ -98,53 +99,34 @@ tuiConnected
 @if (activeIndex()==3) {
 <section id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
 
-  <!-- Nombre -->
-  <div>
-    <h3 class="lumen-font-small">Deck Name</h3>
-    <tui-textfield >
-      <input
-      style="width: 90%;"
-        tuiTextfield
-        class="lumen-font"
-        [ngModel]="selectedDeck()?.name"
-        [readOnly]="true"
-      />
-    </tui-textfield>
-  </div>
+<tui-textfield>
+<input
+    tuiTextfield
+    [value]="selectedDeckName"
+    [readOnly]="true"
+/>
+</tui-textfield>
 
-  <!-- Card Front -->
-  <div>
-    <h3 class="lumen-font-small">Card Front</h3>
-    <quill-editor
-      class="quill"
-      [ngModel]="fronthtml"
-      theme="snow"
-      [readOnly]="true"
-      [modules]="{ toolbar: false }"
-      [sanitize]="true">
-    </quill-editor>
-  </div>
+<quill-editor
+  [ngModel]="form.value.frontContent"
+  [readOnly]="true"
+  [modules]="{ toolbar: false }"
+></quill-editor>
 
-  <!-- Card Back -->
-  <div>
-    <h3 class="lumen-font-small">Card Back</h3>
-    <quill-editor
-      class="quill"
-      [ngModel]="backhtml"
-      theme="snow"
-      [readOnly]="true"
-      [modules]="{ toolbar: false }"
-      [sanitize]="true">
-    </quill-editor>
-  </div>
+<quill-editor
+  [ngModel]="form.value.backContent"
+  [readOnly]="true"
+  [modules]="{ toolbar: false }"
+></quill-editor>
 
-
-  	<button
+  	<button (click)="saveCard()"
+    [disabled]="form.invalid"
       style="width: 90%; background-color: var(--tui-background-accent-2); color: white;"
 	    tuiButton
       class="lumen-font-small"
 	    type="button">
 	    Save Deck
+      
 	</button>
 </section>
 }

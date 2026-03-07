@@ -1,0 +1,28 @@
+<a
+  iconStart="@tui.chevron-left"
+  tuiLink
+  [textContent]="'Deck List'"
+  (click)="navigateBack()"
+></a>
+<div class="deck-header">
+  <h1 class="lumen-font">{{ deckDetail()?.name }}</h1>
+  <div tuiButtonGroup>
+    <button
+      type="button"
+      style="color: var(--tui-status-positive); margin-top: 1rem"
+      (click)="navigateToNew()"
+    >
+      <tui-icon icon="@tui.circle-plus" />
+      <span style="margin-top: 0.25rem"> New Card </span>
+    </button>
+  </div>
+</div>
+<hr />
+<br />
+<h2 class="lumen-font">Cards in deck:</h2>
+
+@for (card of deckDetail()?.cards; track card) {
+<div tuiCardLarge tuiHeadertuiSurface="floating" style="margin-bottom: 2rem" class="card-container" (click)="navigateToDetail(card.id)">
+  <h2 tuiTitle>{{card.frontContent}}</h2>
+</div>
+}

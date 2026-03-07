@@ -1,0 +1,58 @@
+<a
+  iconStart="@tui.chevron-left"
+  tuiLink
+  [textContent]="'Deck Detail'"
+  (click)="navigateBack()"
+></a>
+<section id="summarySection" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 2rem;">
+
+    <div style="justify-content: space-between; align-items: center; display: flex;">
+    <h2 class="lumen-font">Card Detail</h2>
+    <button tuiButton (click)="toggleEdit()">
+        @if(!this.isEditing()){
+            <tui-icon icon="@tui.pencil"/>
+        }
+        @else {
+            <tui-icon icon="@tui.eye"/>
+
+        }
+    </button>
+    </div>
+  <!-- Front Card Content -->
+  <div class="card-summary">
+    <h3 class="lumen-font-small">Front Content</h3>
+    <quill-editor
+      [readOnly]="!isEditing()"
+      [ngModel]="card()?.frontContent"
+      [modules]="modules"
+      class="quill-summary"
+      theme="snow"
+
+    ></quill-editor>
+  </div>
+
+  <!-- Back Card Content -->
+  <div class="card-summary">
+    <h3 class="lumen-font-small">Back Content</h3>
+    <quill-editor
+      [ngModel]="card()?.backContent"
+      [readOnly]="!isEditing()"
+      [modules]="modules"
+      theme="snow"
+      class="quill-summary"
+    ></quill-editor>
+  </div>
+
+  <!-- Save Button -->
+   @if(this.isEditing()){
+  <button
+    style="width: 90%; background-color: var(--tui-background-accent-2); color: white;"
+    tuiButton
+    class="lumen-font-small"
+    type="button"
+  >
+    Save Card
+  </button>
+   }
+
+</section>
