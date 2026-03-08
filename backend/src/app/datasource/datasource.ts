@@ -3,6 +3,7 @@ import { Global, Module } from '@nestjs/common';
 import { UserEntity } from '../features/users/user.entity';
 import { CardEntity } from '../features/cards/card.entity';
 import { DeckEntity } from '../features/decks/deck.entity';
+import { TagEntity } from '../features/tags/tag.entity';
 
 @Global() // makes the module available globally for other modules once imported in the app modules
 @Module({
@@ -34,4 +35,4 @@ import { DeckEntity } from '../features/decks/deck.entity';
 })
 
 export class TypeOrmModule {}
-export const defaultEntities = [UserEntity, CardEntity, DeckEntity]
+export const defaultEntities = [UserEntity, CardEntity, DeckEntity, TagEntity]

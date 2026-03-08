@@ -28,8 +28,9 @@ export class DecksService {
 
 
     async find(query: DeckQuery): Promise<DeckGetDto[] | null> {
-        const qb = this.repository.createQueryBuilder('decks')
-            .loadRelationCountAndMap('decks.cardQuantity', 'decks.cards');
+    const qb = this.repository.createQueryBuilder('decks')
+        .leftJoinAndSelect('decks.tags', 'tags')
+        .loadRelationCountAndMap('decks.cardQuantity', 'decks.cards');
 
         if (query.id) {
             qb.andWhere('decks.id = :id', { id: query.id });
@@ -47,7 +48,13 @@ export class DecksService {
         return entities.map(deck => ({
             name: deck.name,
             id: deck.id,
-            cardQuantity: (deck as any).cardQuantity
+            cardQuantity: (deck as any).cardQuantity,
+            tags: deck.tags ? deck.tags.map(tag => ({
+                deckId: deck.id,
+                deckName: deck.name,
+                id: tag.id,
+                name: tag.name
+            }) ) : []
         }));
     }
 
@@ -55,6 +62,7 @@ export class DecksService {
     const deck = await this.repository
         .createQueryBuilder('decks')
         .leftJoinAndSelect('decks.cards', 'cards') 
+        .leftJoinAndSelect('decks.tags', 'tags') 
         .where('decks.id = :id', { id })          
         .getOne();                                 
 
@@ -64,7 +72,13 @@ export class DecksService {
         id: deck.id,
         name: deck.name,
         cards: deck.cards,         
-        cardQuantity: deck.cards.length
+        cardQuantity: deck.cards.length,
+        tags: deck.tags ? deck.tags.map(tag => ({
+            deckId: deck.id,
+            deckName: deck.name,
+            id: tag.id,
+            name: tag.name
+        })) : []
     };
 }
 

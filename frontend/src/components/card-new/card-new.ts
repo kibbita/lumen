@@ -14,6 +14,7 @@ import { DeckGetDto } from '../../models/deckGetDto';
 import { ToastService } from '../../services/toast.service';
 import { CardPostDto } from '../../models/cardPostDto';
 import { environment } from '../../environments/environment';
+import { TagService } from '../../services/tag.service';
 @Component({
   selector: 'app-card-new',
   standalone: true,
@@ -65,6 +66,7 @@ get selectedDeckName(): string {
   cardsService = inject(CardService);
   toastService = inject(ToastService);
   private destroyRef = inject(DestroyRef);
+  tagsService = inject(TagService);
 
   constructor(private fileService:FileService, private fb: FormBuilder, private location: Location) {
     this.form = this.fb.group({
@@ -151,6 +153,7 @@ get selectedDeckName(): string {
 
   }
 
+  
 private async uploadImage(file: File): Promise<string> {
   const form = new FormData();
   form.append('file', file);  

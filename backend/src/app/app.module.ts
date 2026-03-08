@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { FileUploadModule } from './features/file-upload/file-upload.module';
 import { AnkiService } from './features/anki-service/anki.service';
 import { AnkiModule } from './features/anki-service/anki.module';
+import { TagsModule } from './features/tags/tags.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AnkiModule } from './features/anki-service/anki.module';
     UsersModule,
     CardsModule,
     DecksModule,
+    TagsModule,
     AuthModule,
     FileUploadModule,
     AnkiModule,

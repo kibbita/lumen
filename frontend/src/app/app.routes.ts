@@ -10,6 +10,7 @@ import { PublicLayout } from './layout/public-layout/public-layout';
 import { DeckList } from '../components/deck-list/deck-list';
 import { DeckDetail } from '../components/deck-detail/deck-detail';
 import { CardDetail } from '../components/card-detail/card-detail';
+import { StudySession } from '../components/study-session/study-session';
 
 export const appRoutes: Route[] = [
 
@@ -35,6 +36,7 @@ export const appRoutes: Route[] = [
       { path: 'deck-list', component: DeckList },
       { path: 'decks/:id', component: DeckDetail},
       { path: 'cards/:id', component: CardDetail},
+      { path: 'study-session', component: StudySession}
     ],
   },
 

@@ -1,28 +1,83 @@
-<a
-  iconStart="@tui.chevron-left"
-  tuiLink
-  [textContent]="'Deck List'"
-  (click)="navigateBack()"
-></a>
+<a iconStart="@tui.chevron-left" tuiLink [textContent]="'Deck List'" (click)="navigateBack()"></a>
 <div class="deck-header">
   <h1 class="lumen-font">{{ deckDetail()?.name }}</h1>
   <div tuiButtonGroup>
-    <button
-      type="button"
-      style="color: var(--tui-status-positive); margin-top: 1rem"
-      (click)="navigateToNew()"
-    >
+    <button type="button" style="color: var(--tui-status-positive); margin-top: 1rem" (click)="navigateToNew()">
       <tui-icon icon="@tui.circle-plus" />
-      <span style="margin-top: 0.25rem"> New Card </span>
+      <span class="lumen-font-small" style="margin-top: 0.25rem"> New Card </span>
     </button>
   </div>
 </div>
 <hr />
 <br />
+
+<h2 class="lumen-font">Tags:</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; justify-content: space-between;">
+
+  <div>
+    @for (tag of deckDetail()?.tags; track tag) {
+    <tui-chip class="lumen-font-small" appearance="custom" style="margin-right: 0.25rem;"
+      [style.background-color]="tag.name | tuiAutoColor">
+      {{ tag.name }}
+
+      <button tuiButtonClose tuiIconButton type="button" size="xs"   (click)="confirmDeleteTag(tag.id)">>
+        Close
+      </button>
+    </tui-chip>
+    }
+    @if (deckDetail()?.tags?.length == 0) {
+    <span class="lumen-font-small" style="opacity: 30%;">No tags found for deck</span>
+    }
+  </div>
+
+  <div>
+    <button tuiButton type="button" style="color: var(--tui-status-positive); margin-top: -3rem; background-color: rgba(240, 248, 255, 0);" 
+      (click)="openTagModal()">
+      <tui-icon icon="@tui.circle-plus" />
+      <span class="lumen-font-small" style="margin-top: 0.25rem"> New Tag </span>
+    </button>
+  </div>
+
+</div>
 <h2 class="lumen-font">Cards in deck:</h2>
 
 @for (card of deckDetail()?.cards; track card) {
-<div tuiCardLarge tuiHeadertuiSurface="floating" style="margin-bottom: 2rem" class="card-container" (click)="navigateToDetail(card.id)">
-<h2 tuiTitle [innerHTML]="card.frontContent"></h2>
+<div tuiCardLarge tuiHeadertuiSurface="floating" style="margin-bottom: 2rem" class="card-container"
+  (click)="navigateToDetail(card.id)">
+  <h2 tuiTitle [innerHTML]="card.frontContent"></h2>
 </div>
 }
+
+
+<!-- TAG MODAL -->
+
+<ng-template let-observer [tuiDialogOptions]="{label: 'Create new tag', size: 'm'}" [(tuiDialog)]="tagModalOpened">
+<tui-textfield style="margin-top: 2rem;">
+  <input
+    tuiTextfield
+    class="lumen-font"
+    placeholder="Search or create tag"
+    [ngModel]="tagQuery()"
+    (ngModelChange)="tagQuery.set($event)"
+  />
+</tui-textfield>
+  <button style="margin-top: 2rem; width: 100%; background-color: var(--tui-background-accent-2); color: white;"
+    tuiButton (click)="createTag()" [disabled]="(!tagQuery())" type="submit">
+    Save
+  </button>
+<tui-data-list
+  *ngIf="tagQuery() && filteredTags().length > 0"
+  style="margin-top:1rem"
+>
+  @for (tag of filteredTags(); track tag.id) {
+    <button
+      tuiOption
+      type="button"
+      (click)="selectExistingTag(tag)"
+    >
+      {{ tag.name }}
+    </button>
+  }
+</tui-data-list>
+</ng-template>
