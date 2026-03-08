@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { TuiIcon, TuiRoot } from '@taiga-ui/core';
 import { LucideAngularModule, Moon, Route, Sun } from 'lucide-angular';
 import {TuiNavigation,} from '@taiga-ui/layout';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';import {TuiAvatar, TuiBadge, TuiBadgeNotification, TuiSwitch} from '@taiga-ui/kit';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';import {TuiAvatar, TuiBadge, TuiBadgeNotification, TuiSwitch} from '@taiga-ui/kit';
 import { ThemeService } from '../../../services/theme.service';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
@@ -25,6 +25,7 @@ export class AppLayout implements OnInit{
   readonly sun = Sun;
 
   private userService = inject(UserService);
+  router = inject(Router);
   
   ngOnInit() {
     window.addEventListener('resize', () => {
@@ -53,5 +54,9 @@ export class AppLayout implements OnInit{
         console.error(err);
       }
     });
+  }
+
+  navigateToStudy(){
+    this.router.navigate(['study-session/new'])
   }
 }

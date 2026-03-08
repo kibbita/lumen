@@ -49,3 +49,73 @@ width: 100%;
 }
 
 
+.study-fab {
+  position: fixed;
+  right: 35px;
+  bottom: 35px;
+  z-index: 1000;
+  color: white;;
+  border-radius: 999px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #0b1220 100%
+    ) !important;
+  font-weight: 600;
+  padding: 0.9rem 1.4rem;
+}
+
+/* mobile adjustment */
+@media (max-width: 768px) {
+  .study-fab {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+.sidenav-item {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.sidenav-item:hover {
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #0b1220 100%
+    ) !important;
+  transform: translateX(5px); /* subtle slide effect on hover */
+}
+
+/* Floating FAB button hover effect */
+.study-fab {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.study-fab:hover {
+  transform: scale(1.05); /* slightly grow */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); /* deeper shadow */
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(56, 189, 248, 0.25),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #0b1220 100%
+    ) !important;
+}

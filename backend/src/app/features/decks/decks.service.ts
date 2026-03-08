@@ -44,6 +44,20 @@ export class DecksService {
             qb.andWhere('decks.user_id = :userId', { userId: query.userId });
         }
 
+        if (query.tag){
+            qb.andWhere('tags.name = :tag', { tag: query.tag });
+        }
+        //Global
+        if (query.queryText) {
+        qb.andWhere(
+            '(tags.name LIKE :queryText OR decks.name LIKE :deckName)',
+            {
+                queryText: `%${query.queryText}%`,
+                deckName: `%${query.queryText}%`,
+            }
+        );
+}
+
         const entities= await qb.getMany(); 
         return entities.map(deck => ({
             name: deck.name,

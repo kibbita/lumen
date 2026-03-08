@@ -1,0 +1,43 @@
+.deck-container {
+  display: flex;
+  gap: 20px; 
+  height: 100vh;
+}
+
+.left-column {
+  flex: 3; 
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.right-column {
+  flex: 1;
+  padding: 20px;
+  border-left: 1px solid #ccc; 
+  overflow-y: auto;
+}
+
+.deck-wrapper {
+  position: relative;
+      margin-right: 1rem;
+  margin-bottom: 2rem;
+}
+
+.deck-add-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.selected-deck-wrapper {
+  position: relative;
+  display: inline-block; 
+  margin-bottom: 2rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10; 
+}

@@ -12,6 +12,8 @@ import { FileUploadModule } from './features/file-upload/file-upload.module';
 import { AnkiService } from './features/anki-service/anki.service';
 import { AnkiModule } from './features/anki-service/anki.module';
 import { TagsModule } from './features/tags/tags.module';
+import { StudySessionModule } from './features/study-session/study-session.module';
+import { ReviewModule } from './features/reviews/review.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { TagsModule } from './features/tags/tags.module';
     AuthModule,
     FileUploadModule,
     AnkiModule,
+    StudySessionModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, AnkiService],

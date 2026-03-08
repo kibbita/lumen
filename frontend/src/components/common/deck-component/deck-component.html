@@ -1,10 +1,30 @@
 <div tuiCardLarge tuiSurface="floating" class="custom-card" style="background-color: black;" (click)="nagivateToDetail()">
-    <header tuiHeader style="margin-top: 2rem;">
-        <h2 class="lumen-font" style="color: white;">{{deck()?.name}}</h2>
-    </header>
+  <header tuiHeader style="margin-top: 2rem;">
+    <h2 class="lumen-font" style="color: white;">{{deck()?.name}}</h2>
+  </header>
 
-
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
     <tui-chip appearance="custom" iconEnd="@tui.chevrons-right" class="lumen-font" style="color: white;">
-        {{deck()?.cardQuantity}} Cards
+      {{deck()?.cardQuantity}} Cards
     </tui-chip>
+
+    @if (showTags) {
+    <div style="display: flex; flex-wrap: wrap;">
+      <!-- Show first 3 tags -->
+      @for (tag of deck()?.tags?.slice(0,3); track tag) {
+        <tui-chip class="lumen-font-small" style="margin-right: 0.25rem;" [style.background-color]="tag.name | tuiAutoColor">
+          {{ tag.name }}
+          <button tuiButtonClose tuiIconButton type="button" size="xs"></button>
+        </tui-chip>
+      }
+
+      @if(deck()?.tags && deck()?.tags?.length! > 3) {
+        <tui-chip class="lumen-font-small" style="margin-right: 0.25rem; background-color: gray;">
+          +{{ deck()?.tags?.length! - 3 }} more
+        </tui-chip>
+      }
+    </div>
+    }
+
+  </div>
 </div>

@@ -1,0 +1,58 @@
+
+<div  style="display: flex; justify-content: space-between;">
+<h1 class="lumen-font">Start a study session</h1>
+<button (click)="createStudySession()"
+ tuiButton style="width: 8rem;  color: white; background-color: rgba(11, 189, 41, 0.637);" [disabled]="this.selectedDecks().length == 0">
+          <tui-icon icon="@tui.circle-plus"></tui-icon>
+  Create</button>
+</div>
+
+<tui-textfield>
+    <label tuiLabel for="search">Search</label>
+    <input placeholder="Search decks" tuiTextfield type="text" id="search" [(ngModel)]=search/>
+    <tui-icon icon="@tui.search"></tui-icon>
+</tui-textfield>
+
+<div class="deck-container" style="margin-top: 2rem;">
+  <!-- Left column: all decks / search -->
+  <div class="left-column">
+
+  @for (deck of allDecks(); track deck.id) {
+    <div class="deck-wrapper">
+    <app-deck-component [deck]="deck" [showTags]="true"></app-deck-component>
+
+    <!-- Plus button -->
+    <div class="deck-add-btn">
+        <button type="button" tuiButton style="color: white; margin-top: 1rem; background-color: rgba(9, 247, 49, 0.459);" 
+        (click)="onDeckSelected(deck.id)"
+>
+        <tui-icon icon="@tui.circle-plus"></tui-icon>
+        </button>
+    </div>
+    </div>
+  }
+
+  </div>
+
+  <div class="right-column">
+    <h2 class="lumen-font-small">Selected Decks</h2>
+
+    @for (deck of selectedDecks(); track deck.id) {
+      <!-- Wrap each selected deck individually -->
+      <div class="selected-deck-wrapper">
+        <app-deck-component [deck]="deck"
+        [showTags]="false"></app-deck-component>
+
+        <button
+          appearance="glass"
+          tuiButtonClose
+          tuiIconButton
+          type="button"
+          class="close-btn"
+          (click)="onSelectionRemove(deck.id)"
+        >
+        </button>
+      </div>
+    }
+  </div>
+</div>

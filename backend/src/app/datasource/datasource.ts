@@ -4,6 +4,8 @@ import { UserEntity } from '../features/users/user.entity';
 import { CardEntity } from '../features/cards/card.entity';
 import { DeckEntity } from '../features/decks/deck.entity';
 import { TagEntity } from '../features/tags/tag.entity';
+import { ReviewEntity } from '../features/reviews/review.entity';
+import { StudySessionEntity } from '../features/study-session/study-session.entity';
 
 @Global() // makes the module available globally for other modules once imported in the app modules
 @Module({
@@ -35,4 +37,4 @@ import { TagEntity } from '../features/tags/tag.entity';
 })
 
 export class TypeOrmModule {}
-export const defaultEntities = [UserEntity, CardEntity, DeckEntity, TagEntity]
+export const defaultEntities = [UserEntity, CardEntity, DeckEntity, TagEntity, ReviewEntity, StudySessionEntity]
